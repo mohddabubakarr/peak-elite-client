@@ -5,100 +5,92 @@
 
 /* ── Tablet ≤ 1100px ── */
 @media (max-width: 1100px) {
-  .hero-h       { font-size: clamp(44px, 5.5vw, 76px); }
-  .svc-grid     { grid-template-columns: repeat(2, 1fr); }
-  .contact-grid { gap: 60px; }
+  .about-grid    { gap: 52px; }
+  .quality-grid  { grid-template-columns: 1fr; gap: 52px; }
+  .quality-copy > p { max-width: 100%; }
+  .contact-grid  { gap: 60px; }
 }
 
 /* ── Small tablet ≤ 900px ── */
 @media (max-width: 900px) {
-  /* hero: stack vertically */
-  .hero {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 46vw;
-    height: auto;
-    min-height: 100svh;
-  }
-  .hero-left { padding-top: 110px; padding-bottom: 52px; }
-  .hero-right { min-height: 46vw; }
-  .hero-right::before { display: none; }
-
-  /* stats band: 2×2 */
-  .stats-band { grid-template-columns: repeat(2, 1fr); }
+  .about-grid      { grid-template-columns: 1fr; }
+  .transform-grid  { grid-template-columns: 1fr; gap: 52px; }
+  .about-photos  { grid-template-rows: 220px 160px; }
+  .svc-grid      { grid-template-columns: repeat(2, 1fr); }
+  .quality-cards { grid-template-columns: 1fr; }
+  .markets-grid  { grid-template-columns: repeat(2, 1fr); }
+  .steps-row     { grid-template-columns: repeat(3, 1fr); }
+  .contact-grid  { grid-template-columns: 1fr; gap: 52px; }
+  .stats-band    { grid-template-columns: repeat(2, 1fr); }
   .sband-item:nth-child(2) { border-right: none; }
-  .sband-item:nth-child(1),
-  .sband-item:nth-child(2) { border-bottom: 1px solid var(--border); }
-
-  /* services */
-  .svc-grid { grid-template-columns: repeat(2, 1fr); }
-
-  .showcase-layout { grid-template-columns: 1fr; gap: 52px; }
-  .contact-grid    { grid-template-columns: 1fr; gap: 52px; }
-  .why-grid        { grid-template-columns: 1fr 1fr; }
-  .steps-row       { grid-template-columns: repeat(3, 1fr); }
-  .stats-row       { grid-template-columns: repeat(2, 1fr); }
-  .footer-body     { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
-  .footer-quote    { grid-column: span 2; text-align: left; }
+  .location-bar-inner { grid-template-columns: 1fr 1fr; }
+  .lbar-item:nth-child(2) { border-right: none; }
+  .lbar-item:nth-child(1),
+  .lbar-item:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,.07); }
+  .footer-body   { flex-direction: column; align-items: flex-start; }
+  .footer-nav    { flex-wrap: wrap; gap: 18px; }
 }
 
 /* ── Phone ≤ 640px ── */
 @media (max-width: 640px) {
-  /* header */
-  .hdr-nav, .hdr-cta { display: none; }
+  .topbar-inner  { flex-direction: column; gap: 6px; padding: 8px 0; }
+  .hdr-nav       { display: none; }
+  .hdr-cta       { font-size: 12px; padding: 9px 16px; }
 
-  /* hero */
-  .hero { grid-template-rows: auto 60vw; }
-  .hero-left { padding: 100px 24px 44px; }
-  .hero-actions { flex-wrap: wrap; }
-  .hero-trust  { gap: 8px 16px; }
+  .hero-content  { padding: 100px 0 60px; }
+  .hero-h        { font-size: clamp(40px, 11vw, 70px); }
+  .hero-sub      { font-size: 14px; }
+  .hero-actions  { flex-direction: column; align-items: flex-start; }
 
-  /* stats band */
-  .stats-band  { grid-template-columns: repeat(2, 1fr); }
-  .sband-item  { padding: 20px 12px; }
-  .sband-item strong { font-size: 26px; }
+  .about-sect    { padding: 72px 0; }
+  .about-photos  {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 140px;
+  }
+  .about-h       { font-size: 36px; }
 
-  /* sections */
-  .sect { padding: 76px 0; }
-  .wrap { width: min(100% - 36px, 1200px); }
+  .stats-band    { grid-template-columns: repeat(2, 1fr); }
+  .sband-item    { padding: 24px 12px; }
+  .sband-item strong { font-size: 36px; }
 
-  /* services */
-  .svc-grid { grid-template-columns: 1fr; }
-  .svc-card { min-height: 240px; }
-  .svc-card-link { opacity: 1; transform: none; }
+  .services-sect { padding: 72px 0; }
+  .svc-grid      { grid-template-columns: 1fr; }
+  .svc-card      { min-height: 260px; }
+  .svc-link      { opacity: 1; transform: none; }
 
-  /* stats */
-  .stats-row  { grid-template-columns: 1fr 1fr; }
-  .stat-cell  { padding: 40px 20px; }
-  .stat-cell strong { font-size: 56px; }
+  .quality-sect  { padding: 72px 0; }
+  .quality-h     { font-size: 38px; }
 
-  /* showcase */
-  .ba-grid    { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; aspect-ratio: auto; min-height: 380px; }
+  .markets-sect  { padding: 72px 0; }
+  .markets-grid  { grid-template-columns: 1fr 1fr; }
 
-  /* why us */
-  .why-grid   { grid-template-columns: 1fr; }
-  .why-card   { padding: 40px 28px; }
+  .process-sect  { padding: 72px 0; }
+  .steps-row     { grid-template-columns: 1fr 1fr; }
 
-  /* process */
-  .steps-row  { grid-template-columns: 1fr 1fr; }
-  .process-h  { font-size: 40px; margin-bottom: 48px; }
-  .step-n     { font-size: 44px; }
+  .contact-sect  { padding: 72px 0; }
+  .contact-h     { font-size: 60px; }
+  .cform-header  { padding: 22px 22px; flex-direction: column; gap: 4px; }
+  .cform-body    { padding: 24px 22px; }
+  .cform-2       { grid-template-columns: 1fr; }
+  .steps-row     { grid-template-columns: 1fr 1fr; }
+  .step-arrow    { display: none; }
+  .steps-row::before { display: none; }
 
-  /* contact */
-  .contact-h  { font-size: 72px; }
-  .cform      { padding: 28px 22px; }
-  .cform-2    { grid-template-columns: 1fr; }
-
-  /* footer */
-  .footer-body     { grid-template-columns: 1fr; }
-  .footer-quote    { grid-column: 1; text-align: left; }
-  .footer-nav      { justify-content: flex-start; flex-wrap: wrap; gap: 18px; }
+  .footer-body   { padding: 44px 0; }
   .footer-base-row { flex-direction: column; gap: 4px; }
 }
 
-/* ── Very small ≤ 400px ── */
-@media (max-width: 400px) {
-  .hero-h     { font-size: 44px; }
-  .contact-h  { font-size: 58px; }
-  .stats-row  { grid-template-columns: 1fr; }
-  .steps-row  { grid-template-columns: 1fr; }
+/* ── Very small ≤ 420px ── */
+@media (max-width: 420px) {
+  .hero-h        { font-size: 38px; }
+  .contact-h     { font-size: 48px; }
+  .markets-grid  { grid-template-columns: 1fr; }
+  .steps-row     { grid-template-columns: 1fr; }
+  .about-photos  {
+    grid-template-columns: 1fr;
+    grid-template-rows: 240px 120px 120px;
+  }
+  .photo-a { grid-column: 1; grid-row: 1; }
+  .photo-b { grid-column: 1; grid-row: 2; }
+  .photo-c { grid-column: 1; grid-row: 3; }
 }

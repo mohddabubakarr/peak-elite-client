@@ -1,98 +1,232 @@
+import { useState, useEffect } from 'react';
 import {
-  ArrowUpRight,
+  ArrowRight,
+  Briefcase,
+  Building2,
+  CalendarCheck,
   CheckCircle2,
+  ClipboardList,
+  Handshake,
+  Home,
+  Hotel,
   Mail,
   MapPin,
   MessageCircle,
   Phone,
+  ShieldCheck,
+  Shirt,
+  ShoppingBag,
+  Sparkles,
+  Wrench,
 } from 'lucide-react';
-import {
-  company,
-  process,
-  services,
-  stats,
-  strengths,
-} from './content.js';
+import { company, markets, process, services, stats, strengths } from './content.js';
+
+function ContactForm({ services, company }) {
+  const [form, setForm] = useState({ name: '', property: '', service: '', message: '' });
+  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+
+  const sendToWhatsApp = () => {
+    const { name, property, service, message } = form;
+    const text = [
+      `Hello PEAK ELITE! 👋`,
+      ``,
+      `*Name:* ${name || '—'}`,
+      `*Property / Company:* ${property || '—'}`,
+      `*Service Needed:* ${service || '—'}`,
+      `*Message:* ${message || '—'}`,
+    ].join('\n');
+    window.open(`https://wa.me/${company.whatsapp.replace(/\D/g,'')}?text=${encodeURIComponent(text)}`, '_blank');
+  };
+
+  return (
+    <section className="contact-sect" id="contact">
+      <div className="wrap contact-grid">
+        <div className="contact-copy">
+          <p className="sect-label">Get in Touch</p>
+          <h2 className="contact-h">Let's work<br />together.</h2>
+          <p>Tell us what you need and we'll have a plan ready within 24 hours.</p>
+          <nav className="cinfo" aria-label="Contact details">
+            <a href={`tel:${company.phone.replaceAll(' ','')}`}><Phone size={14}/>{company.phone}</a>
+            <a href={`mailto:${company.email}`}><Mail size={14}/>{company.email}</a>
+            <span><MessageCircle size={14}/>{company.whatsapp}</span>
+            <span><MapPin size={14}/>{company.location}</span>
+          </nav>
+        </div>
+        <div className="cform">
+          <div className="cform-header">
+            <h3>Send an Enquiry</h3>
+            <p>We'll reply via WhatsApp within the hour.</p>
+          </div>
+          <div className="cform-body">
+            <div className="cform-2">
+              <div className="cfield">
+                <label>Your Name</label>
+                <input type="text" placeholder="Full name" value={form.name} onChange={set('name')} />
+              </div>
+              <div className="cfield">
+                <label>Property / Company</label>
+                <input type="text" placeholder="Home or business" value={form.property} onChange={set('property')} />
+              </div>
+            </div>
+            <div className="cfield">
+              <label>Service Needed</label>
+              <select value={form.service} onChange={set('service')}>
+                <option value="" disabled>Select a service</option>
+                {services.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
+              </select>
+            </div>
+            <div className="cfield">
+              <label>Message</label>
+              <textarea rows={4} placeholder="Describe your requirement…" value={form.message} onChange={set('message')} />
+            </div>
+            <button type="button" className="cform-btn" onClick={sendToWhatsApp}>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Send via WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 const PeakLogo = () => (
-  <svg viewBox="0 0 44 34" fill="none" aria-hidden="true">
-    <path
-      d="M3 31L15 7l6.5 10L28 7l13 24"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
+  <img src="/assets/logo-icon.png" alt="Peak Elite logo icon" className="peak-logo-img" />
 );
 
 export default function App() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Scroll reveal
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.10, rootMargin: '0px 0px -30px 0px' }
+    );
+    const observe = () =>
+      document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => observer.observe(el));
+    observe();
+    // re-observe after any lazy content loads
+    const t = setTimeout(observe, 400);
+    return () => { observer.disconnect(); clearTimeout(t); };
+  }, []);
+
   return (
     <>
-      {/* ── HEADER ── */}
-      <header className="hdr">
-        <a className="hdr-logo" href="#top" aria-label="Peak Elite home">
-          <PeakLogo />
-          <div className="hdr-wordmark">
-            <strong>PEAK ELITE</strong>
-            <span>W.L.L</span>
+      {/* ── TOP BAR ── */}
+      <div className="topbar">
+        <div className="wrap topbar-inner">
+          <div className="topbar-contacts">
+            <a href={`tel:${company.phone.replaceAll(' ', '')}`}>
+              <Phone size={12} />{company.phone}
+            </a>
+            <a href={`mailto:${company.email}`}>
+              <Mail size={12} />{company.email}
+            </a>
           </div>
-        </a>
-        <nav className="hdr-nav" aria-label="Primary">
-          <a href="#services">Services</a>
-          <a href="#approach">Approach</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <a className="hdr-cta" href="#contact">Get a Quote</a>
+          <div className="topbar-right">
+            <MapPin size={12} />{company.location}
+          </div>
+        </div>
+      </div>
+
+      {/* ── HEADER ── */}
+      <header className={`hdr${scrolled ? ' hdr--scrolled' : ''}`} id="top">
+        <div className="wrap hdr-inner">
+          <a className="hdr-logo" href="#top" aria-label="Peak Elite home">
+            <PeakLogo />
+            <div className="hdr-wordmark">
+              <strong>PEAK ELITE</strong>
+              <span>W.L.L · Bahrain</span>
+            </div>
+          </a>
+          <nav className="hdr-nav" aria-label="Primary">
+            <a href="#top">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#quality">Quality</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <a className="hdr-cta" href="#contact">
+            <Phone size={13} /> Get a Quote
+          </a>
+        </div>
       </header>
 
-      <main id="top">
+      <main>
 
         {/* ── HERO ── */}
         <section className="hero">
-          {/* Left — dark content panel */}
-          <div className="hero-left">
-            <p className="hero-eyelet">
-              <span className="eyelet-line" />
-              Peak Elite W.L.L · Bahrain
-            </p>
+          <div className="hero-bg" />
+          <div className="hero-overlay" />
+          <div className="wrap hero-content">
+            <p className="hero-eyelet">Professional Facility Services in Bahrain</p>
             <h1 className="hero-h">
-              Your space,<br />
-              <em>perfected.</em>
+              <span><em>PEAK ELITE</em> Cleaning.</span>
+              <span><em>PEAK ELITE</em> Maintenance.</span>
+              <span><em>PEAK ELITE</em> Hospitality.</span>
             </h1>
-            <p className="hero-desc">
-              Professional cleaning, wardrobe management, facility
-              maintenance, hospitality staffing &amp; event support —
-              for Bahrain's most discerning clients.
+            <p className="hero-sub">
+              Facility support and hospitality services for Bahrain's businesses
+              and residences — backed by elite standards and a trusted team.
             </p>
             <div className="hero-actions">
-              <a className="btn-fill" href="#contact">
-                Request Service <ArrowUpRight size={15} />
+              <a className="btn-teal" href="#contact">
+                Get a Free Consultation <ArrowRight size={16} />
               </a>
-              <a className="btn-bare" href="#services">Our Services</a>
-            </div>
-            <div className="hero-trust">
-              {['Professional', 'Uniformed', 'Reliable', 'Bahrain-based'].map(t => (
-                <span key={t}><CheckCircle2 size={12} />{t}</span>
-              ))}
-            </div>
-          </div>
-
-          {/* Right — full-bleed image */}
-          <div className="hero-right">
-            <img
-              src="/assets/peak-elite-hero.png"
-              alt="Peak Elite professional team in uniform"
-            />
-            <div className="hero-right-badge">
-              <strong>W.L.L</strong>
-              <span>Est. Bahrain</span>
+              <a className="btn-outline-white" href="#services">View Services</a>
             </div>
           </div>
         </section>
 
-        {/* Stats band */}
-        <div className="stats-band">
+        {/* ── ABOUT ── */}
+        <section className="about-sect" id="about">
+          <div className="wrap about-grid">
+            <div className="about-photos reveal">
+              <div className="photo-a">
+                <img src="/assets/peak-elite-hero.png" alt="Peak Elite professional team" />
+              </div>
+              <div className="photo-b" style={{ backgroundImage: 'url(/assets/uniform-single.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center 30%' }} />
+              <div className="photo-c" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+              <div className="about-badge">
+                <strong>5+</strong>
+                <span>Years in Bahrain</span>
+              </div>
+            </div>
+            <div className="about-copy reveal">
+              <p className="sect-label">About Us</p>
+              <h2 className="about-h">Service at the<br />highest level.</h2>
+              <p>
+                PEAK ELITE W.L.L provides professional facility support and
+                hospitality-related services to high quality standards. Our
+                trained teams keep properties clean, well-maintained, and
+                running smoothly — with reliable and flexible service.
+              </p>
+              <p>
+                Our vision is to be Bahrain's most trusted facility partner —
+                for businesses, residences, hospitality venues, and events.
+              </p>
+              <a className="btn-navy" href="#contact">Contact Us</a>
+            </div>
+          </div>
+        </section>
+
+        {/* ── STATS BAND ── */}
+        <div className="stats-band reveal-stagger">
           {stats.map(({ value, label }) => (
             <div key={label} className="sband-item">
               <strong>{value}</strong>
@@ -101,31 +235,67 @@ export default function App() {
           ))}
         </div>
 
+        {/* ── TRANSFORMATION ── */}
+        <section className="transform-sect" id="transformation">
+          <div className="wrap transform-grid">
+            <div className="transform-copy reveal">
+              <p className="sect-label">Before &amp; After</p>
+              <h2 className="transform-h">From clutter<br />to <em>calm.</em></h2>
+              <p>
+                Whether it's a wardrobe in chaos or a space that needs a complete
+                reset — our trained teams deliver results you can see and feel.
+              </p>
+              <ul className="transform-list">
+                {[
+                  'Decluttering & deep organisation',
+                  'Professional ironing & steaming',
+                  'Wardrobe categorising & arranging',
+                  'General house cleaning & upkeep',
+                ].map(pt => (
+                  <li key={pt}><CheckCircle2 size={15} /><span>{pt}</span></li>
+                ))}
+              </ul>
+              <a className="btn-teal" href="#contact">Book a Service <ArrowRight size={15} /></a>
+            </div>
+            <div className="ba-wrap reveal">
+              <div className="ba-panel">
+                <div className="ba-img ba-img-before" />
+                <span className="ba-tag ba-tag-before">Before</span>
+              </div>
+              <div className="ba-panel">
+                <div className="ba-img ba-img-after" />
+                <span className="ba-tag ba-tag-after">After</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── SERVICES ── */}
-        <section className="sect services-sect" id="services">
+        <section className="services-sect" id="services">
           <div className="wrap">
-            <div className="sect-head">
-              <span className="label">What we offer</span>
-              <h2 className="sect-display">
-                Services that<br /><em>elevate.</em>
-              </h2>
-              <p className="sect-sub">
-                Six disciplines, one dedicated team — delivered to the highest standard across Bahrain.
+            <div className="sect-head-center reveal">
+              <h2>Our Services</h2>
+              <p>
+                PEAK ELITE provides professional facility support and hospitality
+                services to the highest standards — with trained teams and
+                dependable processes.
               </p>
             </div>
-
-            <div className="svc-grid">
-              {services.map(({ title, body, icon: Icon }, i) => (
-                <div className="svc-card" key={title}>
-                  <div className="svc-card-top">
-                    <span className="svc-card-n">{String(i + 1).padStart(2, '0')}</span>
-                    <div className="svc-card-ico"><Icon size={20} /></div>
-                  </div>
-                  <div className="svc-card-body">
-                    <h3 className="svc-card-name">{title}</h3>
-                    <p className="svc-card-desc">{body}</p>
-                    <a className="svc-card-link" href="#contact">
-                      Enquire <ArrowUpRight size={12} />
+            <div className="svc-grid reveal-stagger">
+              {services.map(({ title, body, icon: Icon, img }) => (
+                <div
+                  className="svc-card"
+                  key={title}
+                  style={img ? { backgroundImage: `url(${img})` } : {}}
+                >
+                  <div className="svc-card-inner">
+                    <div className="svc-icon-wrap">
+                      <Icon size={26} />
+                    </div>
+                    <h3>{title}</h3>
+                    <p>{body}</p>
+                    <a className="svc-link" href="#contact">
+                      Enquire <ArrowRight size={14} />
                     </a>
                   </div>
                 </div>
@@ -134,104 +304,92 @@ export default function App() {
           </div>
         </section>
 
-        {/* ── STATS ── */}
-        <section className="stats-sect">
+        {/* ── QUALITY / WHY US ── */}
+        <section className="quality-sect" id="quality">
+          <div className="wrap quality-grid">
+            <div className="quality-copy reveal">
+              <p className="sect-label-lt">Quality Promises</p>
+              <h2 className="quality-h">
+                What you can<br />expect from<br />us.
+              </h2>
+              <p>
+                Every client is managed with the same high standard —
+                thorough, reliable, and transparent.
+              </p>
+              <a className="btn-teal" href="#contact">
+                Contact Us <ArrowRight size={15} />
+              </a>
+            </div>
+            <div className="quality-cards reveal-stagger">
+              {strengths.map(({ title, body, icon: Icon }) => (
+                <article className="quality-card" key={title}>
+                  <div className="quality-ico"><Icon size={20} /></div>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </article>
+              ))}
+              <article className="quality-card">
+                <div className="quality-ico"><CheckCircle2 size={20} /></div>
+                <h3>Uniformed professionals</h3>
+                <p>Every team member arrives in uniform — presenting Peak Elite's corporate standard on every visit.</p>
+              </article>
+              <article className="quality-card">
+                <div className="quality-ico"><ClipboardList size={20} /></div>
+                <h3>Transparent service plans</h3>
+                <p>Clear scope, agreed delivery, no surprises — what we promise is what you receive.</p>
+              </article>
+              <article className="quality-card">
+                <div className="quality-ico"><Phone size={20} /></div>
+                <h3>Direct point of contact</h3>
+                <p>One dedicated contact for questions, adjustments, and new requirements — always accessible.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* ── WHO WE SERVE ── */}
+        <section className="markets-sect" id="markets">
           <div className="wrap">
-            <p className="stats-intro"><em>Numbers that speak for themselves.</em></p>
-            <div className="stats-row">
-              {stats.map(({ value, label }) => (
-                <div key={label} className="stat-cell">
-                  <strong>{value}</strong>
-                  <span>{label}</span>
+            <div className="sect-head-center">
+              <p className="sect-label-dk">Who We Serve</p>
+              <h2>Who we work for.</h2>
+              <p>Every environment in Bahrain — served to the same elite standard.</p>
+            </div>
+            <div className="markets-grid reveal-stagger">
+              {markets.map(({ label, icon: Icon, img }) => (
+                <div className="market-card" key={label} style={{ backgroundImage: `url(${img})` }}>
+                  <div className="market-card-overlay" />
+                  <div className="market-card-inner">
+                    <div className="market-ico"><Icon size={22} /></div>
+                    <span>{label}</span>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── SHOWCASE ── */}
-        <section className="sect showcase-sect">
-          <div className="wrap showcase-layout">
-            <div className="showcase-copy">
-              <span className="label-lt">The Transformation</span>
-              <h2 className="showcase-h">
-                From<br /><em>chaos</em><br />to calm.
-              </h2>
-              <p>
-                Whether it's a wardrobe in chaos or a facility that needs a
-                reset — our trained teams deliver results you can see and feel.
-              </p>
-              <ul className="check-list">
-                {[
-                  'Decluttering & deep organisation',
-                  'Professional ironing & steaming',
-                  'Wardrobe categorising & arranging',
-                  'Routine maintenance & upkeep',
-                ].map(pt => (
-                  <li key={pt}>
-                    <CheckCircle2 size={13} />
-                    <span>{pt}</span>
-                  </li>
-                ))}
-              </ul>
-              <a className="btn-gold-line" href="#contact">
-                Book a Service <ArrowUpRight size={15} />
-              </a>
-            </div>
-
-            <div className="ba-grid">
-              <div className="ba-panel ba-before">
-                <div
-                  className="ba-img"
-                  style={{ backgroundImage: 'url(/assets/wardrobe-before.jpg)' }}
-                />
-                <span className="ba-tag">Before</span>
-              </div>
-              <div className="ba-panel ba-after">
-                <div
-                  className="ba-img"
-                  style={{ backgroundImage: 'url(/assets/wardrobe-after.jpg)' }}
-                />
-                <span className="ba-tag ba-gold">After</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHY US ── */}
-        <section className="sect why-sect">
-          <div className="wrap">
-            <div className="why-head">
-              <span className="label">Why Peak Elite</span>
-              <h2 className="sect-display">
-                Professional<br />care, every<br /><em>time.</em>
-              </h2>
-            </div>
-            <div className="why-grid">
-              {strengths.map(({ title, body, icon: Icon }) => (
-                <article className="why-card" key={title}>
-                  <div className="why-ico"><Icon size={22} /></div>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ── PROCESS ── */}
-        <section className="sect process-sect" id="approach">
+        <section className="process-sect" id="approach">
           <div className="wrap">
-            <span className="label">How it works</span>
-            <h2 className="process-h">
-              A clear path<br />from request<br />
-              <em>to results.</em>
-            </h2>
-            <div className="steps-row">
-              {process.map((step, i) => (
-                <div className="step" key={step}>
-                  <span className="step-n">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="step-label">{step}</span>
+            <div className="process-head">
+              <p className="sect-label-lt">How It Works</p>
+              <h2>Simple. Clear.<br />Dependable.</h2>
+              <p>A clear path from your first request to a fully delivered service.</p>
+            </div>
+            <div className="steps-row reveal-stagger">
+              {[
+                { n: '01', title: 'Requirement Review',  desc: 'We listen to what you need and assess the scope.' },
+                { n: '02', title: 'Service Plan',        desc: 'A tailored plan with a clear timeline and costs.' },
+                { n: '03', title: 'Team Coordination',   desc: 'The right team is assigned and fully briefed.' },
+                { n: '04', title: 'On-Site Delivery',    desc: 'Professional execution to our highest standards.' },
+                { n: '05', title: 'Follow-Up',           desc: 'We check in to make sure you are satisfied.' },
+              ].map(({ n, title, desc }, i, arr) => (
+                <div className="step" key={n} data-step={n}>
+                  <span className="step-n">{n}</span>
+                  <h3>{title}</h3>
+                  <p className="step-desc">{desc}</p>
+                  {i < arr.length - 1 && <span className="step-arrow"><ArrowRight size={16} /></span>}
                 </div>
               ))}
             </div>
@@ -239,62 +397,58 @@ export default function App() {
         </section>
 
         {/* ── CONTACT ── */}
-        <section className="sect contact-sect" id="contact">
-          <div className="wrap contact-grid">
-            <div className="contact-copy">
-              <span className="label">Get in touch</span>
-              <h2 className="contact-h">
-                Let's<br /><em>begin.</em>
-              </h2>
-              <p>
-                Tell us what you need — cleaning, wardrobe management,
-                maintenance, staffing or events — and we'll have a plan ready
-                within 24 hours.
-              </p>
-              <nav className="cinfo" aria-label="Contact details">
-                <a href={`mailto:${company.email}`}>
-                  <Mail size={13} /> {company.email}
-                </a>
-                <a href={`tel:${company.phone.replaceAll(' ', '')}`}>
-                  <Phone size={13} /> {company.phone}
-                </a>
-                <span><MessageCircle size={13} /> {company.whatsapp}</span>
-                <span><MapPin size={13} /> {company.location}</span>
-              </nav>
-            </div>
+        <ContactForm services={services} company={company} />
 
-            <form className="cform">
-              <div className="cform-2">
-                <label>
-                  Name
-                  <input type="text" name="name" placeholder="Full name" />
-                </label>
-                <label>
-                  Company / Property
-                  <input type="text" name="company" placeholder="Business or home" />
-                </label>
+        {/* ── LOCATION ── */}
+        <section className="location-sect" id="location">
+          <div className="wrap location-head reveal">
+            <p className="sect-label-dk">Find Us</p>
+            <h2>Visit us in Bahrain.</h2>
+          </div>
+          <div className="location-map reveal">
+            <a href="https://www.google.com/maps?q=26.215328,50.594311" target="_blank" rel="noopener noreferrer" className="location-map-link">
+              <img src="/assets/googlemaps.png" alt="Peak Elite office location in Bahrain" />
+              <div className="location-map-overlay">
+                <MapPin size={20} /> Open in Google Maps
               </div>
-              <label>
-                Service Needed
-                <select name="service" defaultValue="">
-                  <option value="" disabled>Select a service</option>
-                  {services.map(s => (
-                    <option key={s.title} value={s.title}>{s.title}</option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Message
-                <textarea name="message" rows={4} placeholder="Describe your requirement…" />
-              </label>
-              <button type="button" className="cform-btn">
-                <MessageCircle size={16} /> Send Enquiry
-              </button>
-            </form>
+            </a>
+          </div>
+          <div className="location-bar">
+            <div className="location-bar-inner wrap">
+              <div className="lbar-item">
+                <span className="lbar-label">Address</span>
+                <span className="lbar-val">Adliya Building, Gulf Executive Offices<br />9th Floor, Office 9002, El Azzab Group</span>
+              </div>
+              <div className="lbar-item">
+                <span className="lbar-label">Phone</span>
+                <span className="lbar-val">{company.phone}</span>
+              </div>
+              <div className="lbar-item">
+                <span className="lbar-label">Email</span>
+                <span className="lbar-val">{company.email}</span>
+              </div>
+              <div className="lbar-item">
+                <span className="lbar-label">Hours</span>
+                <span className="lbar-val">Available 24 hours</span>
+              </div>
+            </div>
           </div>
         </section>
 
       </main>
+
+      {/* ── WHATSAPP FLOATING ── */}
+      <a
+        className="wa-btn"
+        href={`https://wa.me/${company.whatsapp.replace(/\D/g, '')}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+      >
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
 
       {/* ── FOOTER ── */}
       <footer className="footer">
@@ -302,22 +456,21 @@ export default function App() {
           <div className="footer-brand">
             <PeakLogo />
             <div>
-              <strong>{company.name}</strong>
+              <strong>PEAK ELITE W.L.L</strong>
               <span>Cleaning · Maintenance · Hospitality · Events</span>
             </div>
           </div>
-          <p className="footer-quote">
-            <em>You manage life.<br />We manage your space.</em>
-          </p>
           <nav className="footer-nav" aria-label="Footer">
+            <a href="#top">Home</a>
+            <a href="#about">About</a>
             <a href="#services">Services</a>
-            <a href="#approach">Approach</a>
+            <a href="#quality">Quality</a>
             <a href="#contact">Contact</a>
           </nav>
         </div>
         <div className="footer-base">
           <div className="wrap footer-base-row">
-            <span>© {new Date().getFullYear()} {company.name}</span>
+            <span>© {new Date().getFullYear()} PEAK ELITE W.L.L. All rights reserved.</span>
             <span>{company.location}</span>
           </div>
         </div>
