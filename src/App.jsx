@@ -178,7 +178,7 @@ export default function App() {
             <h1 className="hero-h">
               <span><em>PEAK ELITE</em> Cleaning.</span>
               <span><em>PEAK ELITE</em> Maintenance.</span>
-              <span><em>PEAK ELITE</em> Hospitality.</span>
+              <span><em>PEAK ELITE</em> Events.</span>
             </h1>
             <p className="hero-sub">
               Facility support and hospitality services for Bahrain's businesses
@@ -203,8 +203,8 @@ export default function App() {
               <div className="photo-b" style={{ backgroundImage: 'url(/assets/uniform-single.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center 30%' }} />
               <div className="photo-c" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
               <div className="about-badge">
-                <strong>5+</strong>
-                <span>Years in Bahrain</span>
+                <strong>100%</strong>
+                <span>Satisfaction Guaranteed</span>
               </div>
             </div>
             <div className="about-copy reveal">
