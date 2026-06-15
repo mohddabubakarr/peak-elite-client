@@ -68,8 +68,10 @@ ul    { margin: 0; padding: 0; list-style: none; }
 .topbar-contacts svg,
 .topbar-right svg { color: var(--teal); flex-shrink: 0; }
 .topbar-right { color: rgba(255,255,255,.40); gap: 14px; }
-.topbar-ig { color: rgba(255,255,255,.55); display: flex; align-items: center; transition: color .18s; }
+.topbar-ig { color: rgba(255,255,255,.55); display: flex; align-items: center; gap: 5px; transition: color .18s; }
 .topbar-ig:hover { color: #e1306c; }
+.ig-username { font-size: 11px; font-weight: 500; letter-spacing: 0.02em; display: none; }
+.topbar-location { display: flex; align-items: center; gap: 7px; }
 .footer-ig { display: flex; align-items: center; color: rgba(255,255,255,.45); transition: color .18s; }
 .footer-ig:hover { color: #e1306c; }
 
