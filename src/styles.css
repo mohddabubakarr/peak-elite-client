@@ -67,7 +67,11 @@ ul    { margin: 0; padding: 0; list-style: none; }
 .topbar-contacts a:hover { color: var(--teal); }
 .topbar-contacts svg,
 .topbar-right svg { color: var(--teal); flex-shrink: 0; }
-.topbar-right { color: rgba(255,255,255,.40); }
+.topbar-right { color: rgba(255,255,255,.40); gap: 14px; }
+.topbar-ig { color: rgba(255,255,255,.55); display: flex; align-items: center; transition: color .18s; }
+.topbar-ig:hover { color: #e1306c; }
+.footer-ig { display: flex; align-items: center; color: rgba(255,255,255,.45); transition: color .18s; }
+.footer-ig:hover { color: #e1306c; }
 
 /* ================================================================
    HEADER

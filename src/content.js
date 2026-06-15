@@ -18,7 +18,8 @@ export const company = {
   location: 'Bahrain',
   email: 'info@peakelitebh.com',
   phone: '+973 6500 1080',
-  whatsapp: '+973 6500 1080',
+  whatsapp: '+973 3883 6122',
+  instagram: 'https://www.instagram.com/peakelitebh?utm_source=qr&igsh=c3JkNXllODg2bWpq',
 };
 
 export const navItems = [
