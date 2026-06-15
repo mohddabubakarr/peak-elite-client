@@ -105,11 +105,11 @@ ul    { margin: 0; padding: 0; list-style: none; }
   gap: 12px;
   flex-shrink: 0;
 }
-.peak-logo-img { width: 62px; height: 46px; object-fit: contain; display: block; }
+.peak-logo-img { width: 56px; height: 32px; object-fit: contain; display: block; }
 .hdr-wordmark strong {
   display: block;
   font-family: 'Outfit', sans-serif;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 800;
   letter-spacing: 0.08em;
   color: var(--navy);
