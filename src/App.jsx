@@ -481,7 +481,7 @@ export default function App() {
         </div>
         <div className="footer-base">
           <div className="wrap footer-base-row">
-            <span>© {new Date().getFullYear()} PEAK ELITE W.L.L. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} PEAK ELITE W.L.L. All rights reserved. · <a href="https://www.webiqq.com" target="_blank" rel="noopener noreferrer" style={{color:'inherit',opacity:0.6,textDecoration:'none'}}>Built by Webiqq</a></span>
             <span>{company.location}</span>
           </div>
         </div>
