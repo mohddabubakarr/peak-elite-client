@@ -19,7 +19,7 @@ import {
   Sparkles,
   Wrench,
 } from 'lucide-react';
-import { company, markets, process, services, stats, strengths } from './content.js';
+import { company, faqs, markets, process, services, stats, strengths } from './content.js';
 
 function ContactForm({ services, company }) {
   const [form, setForm] = useState({ name: '', property: '', service: '', message: '' });
@@ -165,6 +165,7 @@ export default function App() {
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#quality">Quality</a>
+            <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
           </nav>
           <a className="hdr-cta" href="#contact">
@@ -254,9 +255,9 @@ export default function App() {
               <ul className="transform-list">
                 {[
                   'Decluttering & deep organisation',
-                  'Professional ironing & steaming',
-                  'Wardrobe categorising & arranging',
-                  'General house cleaning & upkeep',
+                  'Professional cleaning & sanitisation',
+                  'Wardrobe & cabinet arranging',
+                  'Facility maintenance & upkeep',
                 ].map(pt => (
                   <li key={pt}><CheckCircle2 size={15} /><span>{pt}</span></li>
                 ))}
@@ -292,6 +293,8 @@ export default function App() {
                 <div
                   className="svc-card"
                   key={title}
+                  role="img"
+                  aria-label={`${title} in Bahrain`}
                   style={img ? { backgroundImage: `url(${img})` } : {}}
                 >
                   <div className="svc-card-inner">
@@ -363,7 +366,7 @@ export default function App() {
             </div>
             <div className="markets-grid reveal-stagger">
               {markets.map(({ label, icon: Icon, img }) => (
-                <div className="market-card" key={label} style={{ backgroundImage: `url(${img})` }}>
+                <div className="market-card" key={label} role="img" aria-label={`${label} we serve in Bahrain`} style={{ backgroundImage: `url(${img})` }}>
                   <div className="market-card-overlay" />
                   <div className="market-card-inner">
                     <div className="market-ico"><Icon size={22} /></div>
@@ -397,6 +400,25 @@ export default function App() {
                   <p className="step-desc">{desc}</p>
                   {i < arr.length - 1 && <span className="step-arrow"><ArrowRight size={16} /></span>}
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── FAQ ── */}
+        <section className="faq-sect" id="faq">
+          <div className="wrap">
+            <div className="sect-head-center reveal">
+              <p className="sect-label-dk">Frequently Asked Questions</p>
+              <h2>Common questions,<br />answered.</h2>
+              <p>Everything you need to know about PEAK ELITE's services in Bahrain.</p>
+            </div>
+            <div className="faq-list reveal-stagger">
+              {faqs.map(({ q, a }) => (
+                <details className="faq-item" key={q}>
+                  <summary>{q}</summary>
+                  <p>{a}</p>
+                </details>
               ))}
             </div>
           </div>
@@ -471,6 +493,7 @@ export default function App() {
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#quality">Quality</a>
+            <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
             <a href={company.instagram} target="_blank" rel="noopener noreferrer" className="footer-ig" aria-label="Instagram">
               <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
