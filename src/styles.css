@@ -4,8 +4,6 @@
    Deep Navy · Teal · White
    ================================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
-
 :root {
   --navy:    #0b1c2e;
   --navy-2:  #0e2337;
@@ -67,12 +65,12 @@ ul    { margin: 0; padding: 0; list-style: none; }
 .topbar-contacts a:hover { color: var(--teal); }
 .topbar-contacts svg,
 .topbar-right svg { color: var(--teal); flex-shrink: 0; }
-.topbar-right { color: rgba(255,255,255,.40); gap: 14px; }
+.topbar-right { color: rgba(255,255,255,.60); gap: 14px; }
 .topbar-ig { color: rgba(255,255,255,.55); display: flex; align-items: center; gap: 5px; transition: color .18s; }
 .topbar-ig:hover { color: #e1306c; }
 .ig-username { font-size: 11px; font-weight: 500; letter-spacing: 0.02em; display: none; }
 .topbar-location { display: flex; align-items: center; gap: 7px; }
-.footer-ig { display: flex; align-items: center; color: rgba(255,255,255,.45); transition: color .18s; }
+.footer-ig { display: flex; align-items: center; color: rgba(255,255,255,.55); transition: color .18s; }
 .footer-ig:hover { color: #e1306c; }
 
 /* ================================================================
@@ -201,7 +199,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/peak-elite-hero.png');
+  background-image: url('/assets/peak-elite-hero.jpg');
   background-size: cover;
   background-position: center 20%;
   filter: brightness(0.35) saturate(0.6);
@@ -768,7 +766,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
 .quality-card p {
   font-size: 13px;
   line-height: 1.70;
-  color: rgba(255,255,255,.46);
+  color: rgba(255,255,255,.58);
   font-weight: 300;
 }
 
@@ -864,7 +862,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
 }
 .process-head p {
   font-size: 14px;
-  color: rgba(255,255,255,.45);
+  color: rgba(255,255,255,.58);
   max-width: 400px;
   margin: 0 auto;
 }
@@ -933,7 +931,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
 .step-desc {
   font-size: 12px;
   line-height: 1.65;
-  color: rgba(255,255,255,.42);
+  color: rgba(255,255,255,.60);
   font-weight: 300;
 }
 
@@ -1071,7 +1069,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
 }
 .cform-header p {
   font-size: 12px;
-  color: rgba(255,255,255,.45);
+  color: rgba(255,255,255,.58);
   white-space: nowrap;
 }
 
@@ -1172,7 +1170,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
 }
 .footer-brand span {
   font-size: 11px;
-  color: rgba(255,255,255,.35);
+  color: rgba(255,255,255,.58);
   margin-top: 3px;
   display: block;
   font-weight: 300;
@@ -1184,7 +1182,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: rgba(255,255,255,.45);
+  color: rgba(255,255,255,.60);
 }
 .footer-nav a { transition: color .18s; }
 .footer-nav a:hover { color: var(--teal); }
@@ -1195,7 +1193,12 @@ ul    { margin: 0; padding: 0; list-style: none; }
   justify-content: space-between;
   font-size: 11px;
   letter-spacing: 0.06em;
-  color: rgba(255,255,255,.20);
+  color: rgba(255,255,255,.62);
+}
+.footer-credit {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* ================================================================

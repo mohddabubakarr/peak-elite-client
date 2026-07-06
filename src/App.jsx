@@ -60,24 +60,24 @@ function ContactForm({ services, company }) {
           <div className="cform-body">
             <div className="cform-2">
               <div className="cfield">
-                <label>Your Name</label>
-                <input type="text" placeholder="Full name" value={form.name} onChange={set('name')} />
+                <label htmlFor="cf-name">Your Name</label>
+                <input id="cf-name" type="text" placeholder="Full name" value={form.name} onChange={set('name')} />
               </div>
               <div className="cfield">
-                <label>Property / Company</label>
-                <input type="text" placeholder="Home or business" value={form.property} onChange={set('property')} />
+                <label htmlFor="cf-property">Property / Company</label>
+                <input id="cf-property" type="text" placeholder="Home or business" value={form.property} onChange={set('property')} />
               </div>
             </div>
             <div className="cfield">
-              <label>Service Needed</label>
-              <select value={form.service} onChange={set('service')}>
+              <label htmlFor="cf-service">Service Needed</label>
+              <select id="cf-service" value={form.service} onChange={set('service')}>
                 <option value="" disabled>Select a service</option>
                 {services.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
               </select>
             </div>
             <div className="cfield">
-              <label>Message</label>
-              <textarea rows={4} placeholder="Describe your requirement…" value={form.message} onChange={set('message')} />
+              <label htmlFor="cf-message">Message</label>
+              <textarea id="cf-message" rows={4} placeholder="Describe your requirement…" value={form.message} onChange={set('message')} />
             </div>
             <button type="button" className="cform-btn" onClick={sendToWhatsApp}>
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
@@ -205,7 +205,7 @@ export default function App() {
           <div className="wrap about-grid">
             <div className="about-photos reveal">
               <div className="photo-a">
-                <img src="/assets/peak-elite-hero.png" alt="Peak Elite professional team" />
+                <img src="/assets/peak-elite-hero.jpg" alt="Peak Elite professional team" loading="lazy" decoding="async" />
               </div>
               <div className="photo-b" style={{ backgroundImage: 'url(/assets/uniform-single.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center 30%' }} />
               <div className="photo-c" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
@@ -435,7 +435,7 @@ export default function App() {
           </div>
           <div className="location-map reveal">
             <a href="https://www.google.com/maps?q=26.215328,50.594311" target="_blank" rel="noopener noreferrer" className="location-map-link">
-              <img src="/assets/googlemaps.png" alt="Peak Elite office location in Bahrain" />
+              <img src="/assets/googlemaps.jpg" alt="Peak Elite office location in Bahrain" loading="lazy" decoding="async" />
               <div className="location-map-overlay">
                 <MapPin size={20} /> Open in Google Maps
               </div>
@@ -504,7 +504,7 @@ export default function App() {
         </div>
         <div className="footer-base">
           <div className="wrap footer-base-row">
-            <span>© {new Date().getFullYear()} PEAK ELITE W.L.L. All rights reserved. · <a href="https://www.webiqq.com" target="_blank" rel="noopener noreferrer" style={{color:'inherit',opacity:0.6,textDecoration:'none'}}>Built by Webiqq</a></span>
+            <span>© {new Date().getFullYear()} PEAK ELITE W.L.L. All rights reserved. · <a href="https://www.webiqq.com" target="_blank" rel="noopener noreferrer" className="footer-credit">Built by Webiqq</a></span>
             <span>{company.location}</span>
           </div>
         </div>

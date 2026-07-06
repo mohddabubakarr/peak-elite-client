@@ -26,4 +26,4 @@ npm install
 npm run dev
 ```
 
-The current hero image is a temporary generated visual at `public/assets/peak-elite-hero.png`. Replace it with approved client imagery when available.
+The current hero image is a temporary generated visual at `public/assets/peak-elite-hero.jpg`. Replace it with approved client imagery when available.
