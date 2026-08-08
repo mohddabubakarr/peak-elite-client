@@ -1140,6 +1140,31 @@ ul    { margin: 0; padding: 0; list-style: none; }
 }
 .cform-btn:hover { background: #1ebe5a; transform: translateY(-2px); }
 
+.cform-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+.cform-actions .cform-btn { margin-top: 0; }
+
+.cform-btn-alt {
+  background: var(--navy);
+}
+.cform-btn-alt:hover { background: var(--teal); }
+.cform-btn-alt:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cform-status {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.cform-status-ok { color: #1ebe5a; }
+.cform-status-err { color: #e0473e; }
+
 /* ================================================================
    FOOTER
    ================================================================ */
