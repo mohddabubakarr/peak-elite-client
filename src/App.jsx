@@ -22,17 +22,20 @@ import {
 import { company, markets, process, services, stats, strengths } from './content.js';
 
 function ContactForm({ services, company }) {
-  const [form, setForm] = useState({ name: '', property: '', service: '', message: '' });
+  const [form, setForm] = useState({ name: '', property: '', service: '', date: '', time: '', message: '' });
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+  const today = new Date().toISOString().split('T')[0];
 
   const sendToWhatsApp = () => {
-    const { name, property, service, message } = form;
+    const { name, property, service, date, time, message } = form;
     const text = [
       `Hello PEAK ELITE! 👋`,
       ``,
       `*Name:* ${name || '—'}`,
       `*Property / Company:* ${property || '—'}`,
       `*Service Needed:* ${service || '—'}`,
+      `*Preferred Date:* ${date || '—'}`,
+      `*Preferred Time:* ${time || '—'}`,
       `*Message:* ${message || '—'}`,
     ].join('\n');
     window.open(`https://wa.me/${company.whatsapp.replace(/\D/g,'')}?text=${encodeURIComponent(text)}`, '_blank');
@@ -74,6 +77,16 @@ function ContactForm({ services, company }) {
                 <option value="" disabled>Select a service</option>
                 {services.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
               </select>
+            </div>
+            <div className="cform-2">
+              <div className="cfield">
+                <label>Preferred Date</label>
+                <input type="date" min={today} value={form.date} onChange={set('date')} />
+              </div>
+              <div className="cfield">
+                <label>Preferred Time</label>
+                <input type="time" value={form.time} onChange={set('time')} />
+              </div>
             </div>
             <div className="cfield">
               <label>Message</label>
