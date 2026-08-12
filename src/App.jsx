@@ -19,10 +19,11 @@ import {
   Sparkles,
   Wrench,
 } from 'lucide-react';
-import { company, markets, process, services, stats, strengths } from './content.js';
+import { company, faqs, markets, process, services, stats, strengths } from './content.js';
 
 function ContactForm({ services, company }) {
   const [form, setForm] = useState({ name: '', property: '', service: '', date: '', time: '', message: '' });
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
   const today = new Date().toISOString().split('T')[0];
 
@@ -39,6 +40,30 @@ function ContactForm({ services, company }) {
       `*Message:* ${message || '—'}`,
     ].join('\n');
     window.open(`https://wa.me/${company.whatsapp.replace(/\D/g,'')}?text=${encodeURIComponent(text)}`, '_blank');
+  };
+
+  const sendEmail = async () => {
+    setStatus('sending');
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${company.email}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: 'New enquiry from peakelitebh.com',
+          Name: form.name || '—',
+          'Property / Company': form.property || '—',
+          'Service Needed': form.service || '—',
+          'Preferred Date': form.date || '—',
+          'Preferred Time': form.time || '—',
+          Message: form.message || '—',
+        }),
+      });
+      if (!res.ok) throw new Error('Request failed');
+      setStatus('sent');
+      setForm({ name: '', property: '', service: '', date: '', time: '', message: '' });
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
@@ -63,17 +88,17 @@ function ContactForm({ services, company }) {
           <div className="cform-body">
             <div className="cform-2">
               <div className="cfield">
-                <label>Your Name</label>
-                <input type="text" placeholder="Full name" value={form.name} onChange={set('name')} />
+                <label htmlFor="cf-name">Your Name</label>
+                <input id="cf-name" type="text" placeholder="Full name" value={form.name} onChange={set('name')} />
               </div>
               <div className="cfield">
-                <label>Property / Company</label>
-                <input type="text" placeholder="Home or business" value={form.property} onChange={set('property')} />
+                <label htmlFor="cf-property">Property / Company</label>
+                <input id="cf-property" type="text" placeholder="Home or business" value={form.property} onChange={set('property')} />
               </div>
             </div>
             <div className="cfield">
-              <label>Service Needed</label>
-              <select value={form.service} onChange={set('service')}>
+              <label htmlFor="cf-service">Service Needed</label>
+              <select id="cf-service" value={form.service} onChange={set('service')}>
                 <option value="" disabled>Select a service</option>
                 {services.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
               </select>
@@ -89,15 +114,23 @@ function ContactForm({ services, company }) {
               </div>
             </div>
             <div className="cfield">
-              <label>Message</label>
-              <textarea rows={4} placeholder="Describe your requirement…" value={form.message} onChange={set('message')} />
+              <label htmlFor="cf-message">Message</label>
+              <textarea id="cf-message" rows={4} placeholder="Describe your requirement…" value={form.message} onChange={set('message')} />
             </div>
-            <button type="button" className="cform-btn" onClick={sendToWhatsApp}>
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              Send via WhatsApp
-            </button>
+            <div className="cform-actions">
+              <button type="button" className="cform-btn" onClick={sendToWhatsApp}>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Send via WhatsApp
+              </button>
+              <button type="button" className="cform-btn cform-btn-alt" onClick={sendEmail} disabled={status === 'sending'}>
+                <Mail size={18} />
+                {status === 'sending' ? 'Sending…' : 'Send via Email'}
+              </button>
+            </div>
+            {status === 'sent' && <p className="cform-status cform-status-ok">Thanks — your enquiry was emailed to {company.email}. We'll be in touch shortly.</p>}
+            {status === 'error' && <p className="cform-status cform-status-err">Something went wrong sending the email. Please try WhatsApp or email us directly at {company.email}.</p>}
           </div>
         </div>
       </div>
@@ -178,6 +211,7 @@ export default function App() {
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#quality">Quality</a>
+            <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
           </nav>
           <a className="hdr-cta" href="#contact">
@@ -217,7 +251,7 @@ export default function App() {
           <div className="wrap about-grid">
             <div className="about-photos reveal">
               <div className="photo-a">
-                <img src="/assets/peak-elite-hero.png" alt="Peak Elite professional team" />
+                <img src="/assets/peak-elite-hero.jpg" alt="Peak Elite professional team" loading="lazy" decoding="async" />
               </div>
               <div className="photo-b" style={{ backgroundImage: 'url(/assets/uniform-single.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center 30%' }} />
               <div className="photo-c" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
@@ -267,9 +301,9 @@ export default function App() {
               <ul className="transform-list">
                 {[
                   'Decluttering & deep organisation',
-                  'Professional ironing & steaming',
-                  'Wardrobe categorising & arranging',
-                  'General house cleaning & upkeep',
+                  'Professional cleaning & sanitisation',
+                  'Wardrobe & cabinet arranging',
+                  'Facility maintenance & upkeep',
                 ].map(pt => (
                   <li key={pt}><CheckCircle2 size={15} /><span>{pt}</span></li>
                 ))}
@@ -305,6 +339,8 @@ export default function App() {
                 <div
                   className="svc-card"
                   key={title}
+                  role="img"
+                  aria-label={`${title} in Bahrain`}
                   style={img ? { backgroundImage: `url(${img})` } : {}}
                 >
                   <div className="svc-card-inner">
@@ -376,7 +412,7 @@ export default function App() {
             </div>
             <div className="markets-grid reveal-stagger">
               {markets.map(({ label, icon: Icon, img }) => (
-                <div className="market-card" key={label} style={{ backgroundImage: `url(${img})` }}>
+                <div className="market-card" key={label} role="img" aria-label={`${label} we serve in Bahrain`} style={{ backgroundImage: `url(${img})` }}>
                   <div className="market-card-overlay" />
                   <div className="market-card-inner">
                     <div className="market-ico"><Icon size={22} /></div>
@@ -415,6 +451,25 @@ export default function App() {
           </div>
         </section>
 
+        {/* ── FAQ ── */}
+        <section className="faq-sect" id="faq">
+          <div className="wrap">
+            <div className="sect-head-center reveal">
+              <p className="sect-label-dk">Frequently Asked Questions</p>
+              <h2>Common questions,<br />answered.</h2>
+              <p>Everything you need to know about PEAK ELITE's services in Bahrain.</p>
+            </div>
+            <div className="faq-list reveal-stagger">
+              {faqs.map(({ q, a }) => (
+                <details className="faq-item" key={q}>
+                  <summary>{q}</summary>
+                  <p>{a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ── CONTACT ── */}
         <ContactForm services={services} company={company} />
 
@@ -426,7 +481,7 @@ export default function App() {
           </div>
           <div className="location-map reveal">
             <a href="https://www.google.com/maps?q=26.215328,50.594311" target="_blank" rel="noopener noreferrer" className="location-map-link">
-              <img src="/assets/googlemaps.png" alt="Peak Elite office location in Bahrain" />
+              <img src="/assets/googlemaps.jpg" alt="Peak Elite office location in Bahrain" loading="lazy" decoding="async" />
               <div className="location-map-overlay">
                 <MapPin size={20} /> Open in Google Maps
               </div>
@@ -484,6 +539,7 @@ export default function App() {
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#quality">Quality</a>
+            <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
             <a href={company.instagram} target="_blank" rel="noopener noreferrer" className="footer-ig" aria-label="Instagram">
               <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
@@ -494,7 +550,7 @@ export default function App() {
         </div>
         <div className="footer-base">
           <div className="wrap footer-base-row">
-            <span>© {new Date().getFullYear()} PEAK ELITE W.L.L. All rights reserved. · <a href="https://www.webiqq.com" target="_blank" rel="noopener noreferrer" style={{color:'inherit',opacity:0.6,textDecoration:'none'}}>Built by Webiqq</a></span>
+            <span>© {new Date().getFullYear()} PEAK ELITE W.L.L. All rights reserved. · <a href="https://www.webiqq.com" target="_blank" rel="noopener noreferrer" className="footer-credit">Built by Webiqq</a></span>
             <span>{company.location}</span>
           </div>
         </div>

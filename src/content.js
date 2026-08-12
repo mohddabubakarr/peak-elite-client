@@ -2,7 +2,6 @@ import {
   Briefcase,
   Building2,
   CalendarCheck,
-  ClipboardList,
   Handshake,
   Home,
   Hotel,
@@ -20,6 +19,8 @@ export const company = {
   phone: '+973 6500 1080',
   whatsapp: '+973 3883 6122',
   instagram: 'https://www.instagram.com/peakelitebh?utm_source=qr&igsh=c3JkNXllODg2bWpq',
+  address: 'Adliya Building, Gulf Executive Offices, 9th Floor, Office 9002, El Azzab Group, Adliya, Bahrain',
+  geo: { lat: 26.215328, lng: 50.594311 },
 };
 
 export const navItems = [
@@ -38,40 +39,40 @@ export const stats = [
 
 export const services = [
   {
-    title: 'Cabinet Decluttering',
-    body: 'Our primary service — deep decluttering of cabinets, shelves, and storage spaces. We sort, remove, and organise everything to give you a truly fresh start.',
+    title: 'Cleaning Services',
+    body: 'Professional office, home, and venue cleaning across Bahrain — deep cleaning, routine upkeep, and move-in/move-out cleans delivered by trained, uniformed teams.',
     icon: Sparkles,
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80',
+    img: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80',
   },
   {
-    title: 'Wardrobe Organisation',
-    body: 'Full wardrobe transformation — we sort, fold, hang, and arrange your clothes so every item has its place and your wardrobe works for you daily.',
-    icon: Shirt,
-    img: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80',
+    title: 'Facility Maintenance',
+    body: 'Routine and on-call facility maintenance that keeps commercial properties, offices, and residences in Bahrain running smoothly, day in and day out.',
+    icon: Wrench,
+    img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
   },
   {
-    title: 'Color-Coded Arrangement',
-    body: 'Clothes and accessories arranged by colour for a visually stunning, easy-to-navigate wardrobe that makes getting dressed effortless.',
-    icon: ShoppingBag,
-    img: 'https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Closet Optimisation',
-    body: 'Maximise every inch of your closet space with smart organisation systems, space-saving solutions, and a layout tailored to how you live.',
-    icon: Home,
-    img: '/assets/closet-optimization.jpg',
-  },
-  {
-    title: 'Home Organisation',
-    body: 'Full-home organisation for kitchens, living spaces, pantries, and utility areas — creating calm, functional environments throughout your home.',
-    icon: ClipboardList,
-    img: 'https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=800&q=80',
+    title: 'Hospitality Staffing',
+    body: 'Uniformed, well-presented staff for hotels, restaurants, and hospitality venues — front-of-house support that protects your guest experience.',
+    icon: Hotel,
+    img: '/assets/uniform.jpeg',
   },
   {
     title: 'Event Support',
-    body: 'Pre-event setup and organisation, on-ground support, space arrangement, and post-event cleanup — so your event runs flawlessly.',
+    body: 'Pre-event setup, on-ground coordination, space arrangement, and post-event breakdown — so events across Bahrain run flawlessly from start to finish.',
     icon: CalendarCheck,
     img: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Home & Wardrobe Organisation',
+    body: 'Decluttering, wardrobe and cabinet organisation, and colour-coded arrangement — bringing calm, functional order to homes across Bahrain.',
+    icon: Shirt,
+    img: '/assets/closet-optimization.jpg',
+  },
+  {
+    title: 'Operational & Retail Support',
+    body: 'Flexible operational and retail support staff for busy commercial environments, helping teams in Bahrain stay fully covered at any scale.',
+    icon: Briefcase,
+    img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -146,4 +147,31 @@ export const trustPoints = [
   'Hospitality & event staffing',
   'Bahrain market focus',
   'Professional uniforms',
+];
+
+export const faqs = [
+  {
+    q: 'What services does PEAK ELITE W.L.L provide in Bahrain?',
+    a: 'PEAK ELITE provides cleaning services, facility maintenance, hospitality staffing, event support, home and wardrobe organisation, and operational and retail support across Bahrain — for businesses, residences, hospitality venues, and events.',
+  },
+  {
+    q: 'Which areas of Bahrain do you serve?',
+    a: 'We serve clients across Bahrain, including Manama, Adliya, and the surrounding areas, covering commercial offices, hospitality venues, event spaces, retail units, and residential homes.',
+  },
+  {
+    q: 'Do you provide staff for hotels, restaurants, and events?',
+    a: 'Yes. We supply uniformed, professionally presented hospitality staff for hotels and restaurants, plus on-ground event support — from pre-event setup to post-event breakdown.',
+  },
+  {
+    q: 'Can PEAK ELITE handle one-off jobs as well as recurring contracts?',
+    a: 'Yes. Our coverage is flexible — from a single deep clean or event to recurring cleaning and facility maintenance schedules for offices, hotels, and residences.',
+  },
+  {
+    q: 'How quickly can you respond to a service request in Bahrain?',
+    a: 'We offer same-day response and 24/7 support availability. Most enquiries receive a tailored service plan within 24 hours.',
+  },
+  {
+    q: 'How do I get a quote from PEAK ELITE?',
+    a: 'Contact us via phone, email, or WhatsApp, or use the enquiry form on this site. We will review your requirement and come back with a clear service plan and cost.',
+  },
 ];
