@@ -772,7 +772,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
 }
 .pricing-disclaimer {
   max-width: 720px;
-  margin: 40px auto 0;
+  margin: 20px auto 0;
   text-align: center;
   font-size: 13px;
   line-height: 1.7;
@@ -781,7 +781,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
 .pricing-cta {
   display: flex;
   justify-content: center;
-  margin-top: 28px;
+  margin-top: 16px;
 }
 
 /* ================================================================
