@@ -721,6 +721,7 @@ ul    { margin: 0; padding: 0; list-style: none; }
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
+.pricing-grid > :last-child { grid-column: 2; }
 .pricing-card {
   background: var(--white);
   border: 1px solid var(--border);
