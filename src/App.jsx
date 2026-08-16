@@ -19,7 +19,7 @@ import {
   Sparkles,
   Wrench,
 } from 'lucide-react';
-import { company, markets, process, services, stats, strengths } from './content.js';
+import { company, markets, pricingGroups, process, services, stats, strengths } from './content.js';
 
 function ContactForm({ services, company }) {
   const [form, setForm] = useState({ name: '', property: '', service: '', message: '' });
@@ -164,6 +164,7 @@ export default function App() {
             <a href="#top">Home</a>
             <a href="#about">About</a>
             <a href="#services">Services</a>
+            <a href="#pricing">Pricing</a>
             <a href="#quality">Quality</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -306,6 +307,45 @@ export default function App() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── PRICING ── */}
+        <section className="pricing-sect" id="pricing">
+          <div className="wrap">
+            <div className="sect-head-center reveal">
+              <p className="sect-label">Rate Card</p>
+              <h2>Pricing</h2>
+              <p>
+                All prices are starting rates. Final pricing depends on size,
+                quantity of items, condition, accessibility, and overall scope
+                of work — terms and conditions may change.
+              </p>
+            </div>
+            <div className="pricing-grid reveal-stagger">
+              {pricingGroups.map(({ title, note, tiers }) => (
+                <article className="pricing-card" key={title}>
+                  <h3>{title}</h3>
+                  <ul className="pricing-tiers">
+                    {tiers.map(({ label, price }) => (
+                      <li key={label}>
+                        <span>{label}</span>
+                        <strong>{price}</strong>
+                      </li>
+                    ))}
+                  </ul>
+                  {note && <p className="pricing-note">{note}</p>}
+                </article>
+              ))}
+            </div>
+            <p className="pricing-disclaimer">
+              For larger projects, moving &amp; shifting, walk-in wardrobes and
+              extensive organisation, an inspection is required before
+              confirming the final quotation.
+            </p>
+            <div className="pricing-cta">
+              <a className="btn-teal" href="#contact">Get a Custom Quote <ArrowRight size={15} /></a>
             </div>
           </div>
         </section>
@@ -470,6 +510,7 @@ export default function App() {
             <a href="#top">Home</a>
             <a href="#about">About</a>
             <a href="#services">Services</a>
+            <a href="#pricing">Pricing</a>
             <a href="#quality">Quality</a>
             <a href="#contact">Contact</a>
             <a href={company.instagram} target="_blank" rel="noopener noreferrer" className="footer-ig" aria-label="Instagram">

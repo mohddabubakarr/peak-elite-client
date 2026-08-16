@@ -147,3 +147,72 @@ export const trustPoints = [
   'Bahrain market focus',
   'Professional uniforms',
 ];
+
+export const pricingGroups = [
+  {
+    title: 'Wardrobe Management',
+    note: 'Sorting, categorising, folding, arrangement, space optimisation, before & after documentation and a final double-check.',
+    tiers: [
+      { label: 'Small Wardrobe', price: 'From BHD 15' },
+      { label: 'Medium Wardrobe', price: 'From BHD 20' },
+      { label: 'Large Wardrobe', price: 'From BHD 25' },
+      { label: 'Walk-in Wardrobe', price: 'After Inspection' },
+      { label: '5+ Cabinets', price: 'After Inspection' },
+    ],
+  },
+  {
+    title: 'Home Cleaning',
+    note: 'Regular home cleaning — dusting, vacuuming & mopping, kitchen and bathroom cleaning, general tidying. Minimum booking of 3 hours.',
+    tiers: [
+      { label: 'Per Hour', price: 'BHD 2.500' },
+    ],
+  },
+  {
+    title: 'Deep Cleaning',
+    note: 'Final price depends on the size and condition of the property and the scope of work required.',
+    tiers: [
+      { label: 'Any Property', price: 'From BHD 35' },
+    ],
+  },
+  {
+    title: 'Moving, Labeling & Shifting Arrangement',
+    note: 'For customers moving into, out of, or within a property — sorting, packing/unpacking assistance, room-by-room setup and final organisation. Moving, heavy lifting, transportation, packing materials and external movers are not included unless agreed and quoted separately. Final rate after inspection.',
+    tiers: [
+      { label: 'Any Property', price: 'From BHD 30' },
+    ],
+  },
+  {
+    title: 'Construction Cleaning',
+    note: 'Priced per m² · a minimum project fee applies · heavy debris, cement, paint or adhesive removal is charged additionally · large commercial projects require an inspection and a customised quotation.',
+    tiers: [
+      { label: 'Pre-Construction Cleaning', price: 'From BHD 40' },
+      { label: 'Post-Construction Cleaning', price: 'From BHD 60' },
+      { label: 'Small Apartment / Studio', price: 'From BHD 40' },
+      { label: '1–2 Bedroom Apartment', price: 'From BHD 60' },
+      { label: '3+ Bedroom / Larger Property', price: 'After Inspection' },
+      { label: 'Villa / Commercial Project', price: 'After Inspection' },
+    ],
+  },
+  {
+    title: 'Move-In / Move-Out Cleaning',
+    note: 'Includes full dusting, floors & skirting, kitchen & cabinets, bathrooms & sanitary fittings, doors & handles, and interior-accessible windows, with a final detailed check before you move in. Extra charges apply for heavy dirt, excessive grease, exterior windows, high-level cleaning, heavy debris or additional organisation.',
+    tiers: [
+      { label: 'Studio / 1 Bedroom', price: 'From BHD 35' },
+      { label: '2 Bedroom', price: 'From BHD 45' },
+      { label: '3 Bedroom', price: 'From BHD 60' },
+      { label: '4 Bedroom', price: 'From BHD 75' },
+      { label: 'Villa / Large Property', price: 'After Inspection' },
+    ],
+  },
+  {
+    title: 'Add-On Services',
+    tiers: [
+      { label: 'Fridge Organisation', price: 'From BHD 15' },
+      { label: 'Pantry Organisation', price: 'From BHD 15' },
+      { label: 'Kitchen Cabinet Organisation', price: 'From BHD 20' },
+      { label: 'Decluttering & Sorting', price: 'From BHD 20' },
+      { label: 'Laundry / Linen Organisation', price: 'From BHD 15' },
+      { label: 'Additional Cleaning Time', price: 'Quoted on Request' },
+    ],
+  },
+];

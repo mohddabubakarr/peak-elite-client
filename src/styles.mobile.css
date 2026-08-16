@@ -17,6 +17,7 @@
   .transform-grid  { grid-template-columns: 1fr; gap: 52px; }
   .about-photos  { grid-template-rows: 220px 160px; }
   .svc-grid      { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid  { grid-template-columns: repeat(2, 1fr); }
   .quality-cards { grid-template-columns: 1fr; }
   .markets-grid  { grid-template-columns: repeat(2, 1fr); }
   .steps-row     { grid-template-columns: repeat(3, 1fr); }
@@ -59,6 +60,9 @@
   .svc-grid      { grid-template-columns: 1fr; }
   .svc-card      { min-height: 260px; }
   .svc-link      { opacity: 1; transform: none; }
+
+  .pricing-sect  { padding: 72px 0; }
+  .pricing-grid  { grid-template-columns: 1fr; }
 
   .quality-sect  { padding: 72px 0; }
   .quality-h     { font-size: 38px; }
