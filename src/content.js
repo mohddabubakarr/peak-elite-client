@@ -155,7 +155,7 @@ export const pricingGroups = [
     tiers: [
       { label: 'Small Wardrobe', price: 'From BHD 15' },
       { label: 'Medium Wardrobe', price: 'From BHD 20' },
-      { label: 'Large Wardrobe', price: 'From BHD 25' },
+      { label: 'Large Wardrobe', price: 'From BHD 35' },
       { label: 'Walk-in Wardrobe', price: 'After Inspection' },
       { label: '5+ Cabinets', price: 'After Inspection' },
     ],
