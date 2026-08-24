@@ -102,9 +102,9 @@ function ContactForm({ services, company, t }) {
           <h2 className="contact-h">{t.contact.heading[0]}<br />{t.contact.heading[1]}</h2>
           <p>{t.contact.p}</p>
           <nav className="cinfo" aria-label="Contact details">
-            <a href={`tel:${company.phone.replaceAll(' ','')}`}><Phone size={14}/>{company.phone}</a>
-            <a href={`mailto:${company.email}`}><Mail size={14}/>{company.email}</a>
-            <span><MessageCircle size={14}/>{company.whatsapp}</span>
+            <a href={`tel:${company.phone.replaceAll(' ','')}`}><Phone size={14}/><Ltr>{company.phone}</Ltr></a>
+            <a href={`mailto:${company.email}`}><Mail size={14}/><Ltr>{company.email}</Ltr></a>
+            <span><MessageCircle size={14}/><Ltr>{company.whatsapp}</Ltr></span>
             <span><MapPin size={14}/>{company.location}</span>
           </nav>
         </div>
@@ -157,8 +157,16 @@ function ContactForm({ services, company, t }) {
                 {status === 'sending' ? t.contact.sending : t.contact.sendEmail}
               </button>
             </div>
-            {status === 'sent' && <p className="cform-status cform-status-ok">{t.contact.sentMsg.replace('{email}', company.email)}</p>}
-            {status === 'error' && <p className="cform-status cform-status-err">{t.contact.errorMsg.replace('{email}', company.email)}</p>}
+            {status === 'sent' && (
+              <p className="cform-status cform-status-ok">
+                {t.contact.sentMsg.split('{email}')[0]}<Ltr>{company.email}</Ltr>{t.contact.sentMsg.split('{email}')[1]}
+              </p>
+            )}
+            {status === 'error' && (
+              <p className="cform-status cform-status-err">
+                {t.contact.errorMsg.split('{email}')[0]}<Ltr>{company.email}</Ltr>{t.contact.errorMsg.split('{email}')[1]}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -169,6 +177,8 @@ function ContactForm({ services, company, t }) {
 const PeakLogo = () => (
   <img src="/assets/logo-icon.png" alt="Peak Elite logo icon" className="peak-logo-img" />
 );
+
+const Ltr = ({ children }) => <bdi dir="ltr">{children}</bdi>;
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -222,10 +232,10 @@ export default function App() {
         <div className="wrap topbar-inner">
           <div className="topbar-contacts">
             <a href={`tel:${company.phone.replaceAll(' ', '')}`}>
-              <Phone size={12} />{company.phone}
+              <Phone size={12} /><Ltr>{company.phone}</Ltr>
             </a>
             <a href={`mailto:${company.email}`}>
-              <Mail size={12} />{company.email}
+              <Mail size={12} /><Ltr>{company.email}</Ltr>
             </a>
           </div>
           <div className="topbar-right">
@@ -542,11 +552,11 @@ export default function App() {
               </div>
               <div className="lbar-item">
                 <span className="lbar-label">{t.location.phoneLabel}</span>
-                <span className="lbar-val">{company.phone}</span>
+                <span className="lbar-val"><Ltr>{company.phone}</Ltr></span>
               </div>
               <div className="lbar-item">
                 <span className="lbar-label">{t.location.emailLabel}</span>
-                <span className="lbar-val">{company.email}</span>
+                <span className="lbar-val"><Ltr>{company.email}</Ltr></span>
               </div>
               <div className="lbar-item">
                 <span className="lbar-label">{t.location.hoursLabel}</span>
