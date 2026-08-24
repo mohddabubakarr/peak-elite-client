@@ -19,9 +19,37 @@ import {
   Sparkles,
   Wrench,
 } from 'lucide-react';
-import { company, faqs, markets, pricingGroups, process, services, stats, strengths } from './content.js';
+import { company } from './content.js';
+import { translations } from './i18n.js';
 
-function ContactForm({ services, company }) {
+const serviceIcons = [Sparkles, Wrench, Hotel, CalendarCheck, Shirt, Briefcase];
+const serviceImgs = [
+  'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+  '/assets/uniform.jpeg',
+  'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80',
+  '/assets/closet-optimization.jpg',
+  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
+];
+const strengthIcons = [Building2, ShieldCheck, Handshake];
+const marketIcons = [Building2, Hotel, CalendarCheck, Home, ShoppingBag, Briefcase];
+const marketImgs = [
+  'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+];
+const qualityExtraIcons = [CheckCircle2, ClipboardList, Phone];
+
+function tierPrice(tier, t) {
+  if (tier.price) return tier.price;
+  if (tier.amount) return `${t.pricing.from} ${tier.amount}`;
+  return t.pricing.afterInspection;
+}
+
+function ContactForm({ services, company, t }) {
   const [form, setForm] = useState({ name: '', property: '', service: '', date: '', time: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
@@ -30,14 +58,14 @@ function ContactForm({ services, company }) {
   const sendToWhatsApp = () => {
     const { name, property, service, date, time, message } = form;
     const text = [
-      `Hello PEAK ELITE! 👋`,
+      t.contact.waGreeting,
       ``,
-      `*Name:* ${name || '—'}`,
-      `*Property / Company:* ${property || '—'}`,
-      `*Service Needed:* ${service || '—'}`,
-      `*Preferred Date:* ${date || '—'}`,
-      `*Preferred Time:* ${time || '—'}`,
-      `*Message:* ${message || '—'}`,
+      `*${t.contact.waName}:* ${name || '—'}`,
+      `*${t.contact.waProperty}:* ${property || '—'}`,
+      `*${t.contact.waService}:* ${service || '—'}`,
+      `*${t.contact.waDate}:* ${date || '—'}`,
+      `*${t.contact.waTime}:* ${time || '—'}`,
+      `*${t.contact.waMessage}:* ${message || '—'}`,
     ].join('\n');
     window.open(`https://wa.me/${company.whatsapp.replace(/\D/g,'')}?text=${encodeURIComponent(text)}`, '_blank');
   };
@@ -49,13 +77,13 @@ function ContactForm({ services, company }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          _subject: 'New enquiry from peakelitebh.com',
-          Name: form.name || '—',
-          'Property / Company': form.property || '—',
-          'Service Needed': form.service || '—',
-          'Preferred Date': form.date || '—',
-          'Preferred Time': form.time || '—',
-          Message: form.message || '—',
+          _subject: t.contact.emailSubject,
+          [t.contact.waName]: form.name || '—',
+          [t.contact.waProperty]: form.property || '—',
+          [t.contact.waService]: form.service || '—',
+          [t.contact.waDate]: form.date || '—',
+          [t.contact.waTime]: form.time || '—',
+          [t.contact.waMessage]: form.message || '—',
         }),
       });
       if (!res.ok) throw new Error('Request failed');
@@ -70,9 +98,9 @@ function ContactForm({ services, company }) {
     <section className="contact-sect" id="contact">
       <div className="wrap contact-grid">
         <div className="contact-copy">
-          <p className="sect-label">Get in Touch</p>
-          <h2 className="contact-h">Let's work<br />together.</h2>
-          <p>Tell us what you need and we'll have a plan ready within 24 hours.</p>
+          <p className="sect-label">{t.contact.label}</p>
+          <h2 className="contact-h">{t.contact.heading[0]}<br />{t.contact.heading[1]}</h2>
+          <p>{t.contact.p}</p>
           <nav className="cinfo" aria-label="Contact details">
             <a href={`tel:${company.phone.replaceAll(' ','')}`}><Phone size={14}/>{company.phone}</a>
             <a href={`mailto:${company.email}`}><Mail size={14}/>{company.email}</a>
@@ -82,55 +110,55 @@ function ContactForm({ services, company }) {
         </div>
         <div className="cform">
           <div className="cform-header">
-            <h3>Send an Enquiry</h3>
-            <p>We'll reply via WhatsApp within the hour.</p>
+            <h3>{t.contact.formTitle}</h3>
+            <p>{t.contact.formSub}</p>
           </div>
           <div className="cform-body">
             <div className="cform-2">
               <div className="cfield">
-                <label htmlFor="cf-name">Your Name</label>
-                <input id="cf-name" type="text" placeholder="Full name" value={form.name} onChange={set('name')} />
+                <label htmlFor="cf-name">{t.contact.nameLabel}</label>
+                <input id="cf-name" type="text" placeholder={t.contact.namePlaceholder} value={form.name} onChange={set('name')} />
               </div>
               <div className="cfield">
-                <label htmlFor="cf-property">Property / Company</label>
-                <input id="cf-property" type="text" placeholder="Home or business" value={form.property} onChange={set('property')} />
+                <label htmlFor="cf-property">{t.contact.propertyLabel}</label>
+                <input id="cf-property" type="text" placeholder={t.contact.propertyPlaceholder} value={form.property} onChange={set('property')} />
               </div>
             </div>
             <div className="cfield">
-              <label htmlFor="cf-service">Service Needed</label>
+              <label htmlFor="cf-service">{t.contact.serviceLabel}</label>
               <select id="cf-service" value={form.service} onChange={set('service')}>
-                <option value="" disabled>Select a service</option>
+                <option value="" disabled>{t.contact.serviceSelect}</option>
                 {services.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
               </select>
             </div>
             <div className="cform-2">
               <div className="cfield">
-                <label>Preferred Date</label>
+                <label>{t.contact.dateLabel}</label>
                 <input type="date" min={today} value={form.date} onChange={set('date')} />
               </div>
               <div className="cfield">
-                <label>Preferred Time</label>
+                <label>{t.contact.timeLabel}</label>
                 <input type="time" value={form.time} onChange={set('time')} />
               </div>
             </div>
             <div className="cfield">
-              <label htmlFor="cf-message">Message</label>
-              <textarea id="cf-message" rows={4} placeholder="Describe your requirement…" value={form.message} onChange={set('message')} />
+              <label htmlFor="cf-message">{t.contact.messageLabel}</label>
+              <textarea id="cf-message" rows={4} placeholder={t.contact.messagePlaceholder} value={form.message} onChange={set('message')} />
             </div>
             <div className="cform-actions">
               <button type="button" className="cform-btn" onClick={sendToWhatsApp}>
                 <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
-                Send via WhatsApp
+                {t.contact.sendWhatsApp}
               </button>
               <button type="button" className="cform-btn cform-btn-alt" onClick={sendEmail} disabled={status === 'sending'}>
                 <Mail size={18} />
-                {status === 'sending' ? 'Sending…' : 'Send via Email'}
+                {status === 'sending' ? t.contact.sending : t.contact.sendEmail}
               </button>
             </div>
-            {status === 'sent' && <p className="cform-status cform-status-ok">Thanks — your enquiry was emailed to {company.email}. We'll be in touch shortly.</p>}
-            {status === 'error' && <p className="cform-status cform-status-err">Something went wrong sending the email. Please try WhatsApp or email us directly at {company.email}.</p>}
+            {status === 'sent' && <p className="cform-status cform-status-ok">{t.contact.sentMsg.replace('{email}', company.email)}</p>}
+            {status === 'error' && <p className="cform-status cform-status-err">{t.contact.errorMsg.replace('{email}', company.email)}</p>}
           </div>
         </div>
       </div>
@@ -144,6 +172,22 @@ const PeakLogo = () => (
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
+  const [lang, setLang] = useState(() => {
+    try { return localStorage.getItem('peak-lang') || 'en'; } catch { return 'en'; }
+  });
+  const t = translations[lang];
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = t.dir;
+    try { localStorage.setItem('peak-lang', lang); } catch { /* ignore */ }
+  }, [lang, t.dir]);
+
+  const toggleLang = () => setLang(l => (l === 'en' ? 'ar' : 'en'));
+
+  const services = t.services.list.map((s, i) => ({ ...s, icon: serviceIcons[i], img: serviceImgs[i] }));
+  const strengths = t.quality.strengths.map((s, i) => ({ ...s, icon: strengthIcons[i] }));
+  const markets = t.markets.list.map((label, i) => ({ label, icon: marketIcons[i], img: marketImgs[i] }));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -167,9 +211,9 @@ export default function App() {
       document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => observer.observe(el));
     observe();
     // re-observe after any lazy content loads
-    const t = setTimeout(observe, 400);
-    return () => { observer.disconnect(); clearTimeout(t); };
-  }, []);
+    const tt = setTimeout(observe, 400);
+    return () => { observer.disconnect(); clearTimeout(tt); };
+  }, [lang]);
 
   return (
     <>
@@ -207,17 +251,22 @@ export default function App() {
             </div>
           </a>
           <nav className="hdr-nav" aria-label="Primary">
-            <a href="#top">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#quality">Quality</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contact">Contact</a>
+            <a href="#top">{t.nav.home}</a>
+            <a href="#about">{t.nav.about}</a>
+            <a href="#services">{t.nav.services}</a>
+            <a href="#pricing">{t.nav.pricing}</a>
+            <a href="#quality">{t.nav.quality}</a>
+            <a href="#faq">{t.nav.faq}</a>
+            <a href="#contact">{t.nav.contact}</a>
           </nav>
-          <a className="hdr-cta" href="#contact">
-            <Phone size={13} /> Get a Quote
-          </a>
+          <div className="hdr-actions">
+            <button type="button" className="lang-toggle" onClick={toggleLang} aria-label="Switch language">
+              {lang === 'en' ? 'العربية' : 'English'}
+            </button>
+            <a className="hdr-cta" href="#contact">
+              <Phone size={13} /> {t.nav.cta}
+            </a>
+          </div>
         </div>
       </header>
 
@@ -228,21 +277,18 @@ export default function App() {
           <div className="hero-bg" />
           <div className="hero-overlay" />
           <div className="wrap hero-content">
-            <p className="hero-eyelet">Professional Facility Services in Bahrain</p>
+            <p className="hero-eyelet">{t.hero.eyelet}</p>
             <h1 className="hero-h">
-              <span><em>PEAK ELITE</em> Cleaning.</span>
-              <span><em>PEAK ELITE</em> Maintenance.</span>
-              <span><em>PEAK ELITE</em> Events.</span>
+              {t.hero.lines.map((line, i) => (
+                <span key={i}><em>{t.hero.brand}</em> {line}</span>
+              ))}
             </h1>
-            <p className="hero-sub">
-              Facility support and hospitality services for Bahrain's businesses
-              and residences — backed by elite standards and a trusted team.
-            </p>
+            <p className="hero-sub">{t.hero.sub}</p>
             <div className="hero-actions">
               <a className="btn-teal" href="#contact">
-                Get a Free Consultation <ArrowRight size={16} />
+                {t.hero.ctaPrimary} <ArrowRight size={16} />
               </a>
-              <a className="btn-outline-white" href="#services">View Services</a>
+              <a className="btn-outline-white" href="#services">{t.hero.ctaSecondary}</a>
             </div>
           </div>
         </section>
@@ -257,31 +303,23 @@ export default function App() {
               <div className="photo-b" style={{ backgroundImage: 'url(/assets/uniform-single.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center 30%' }} />
               <div className="photo-c" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=600&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
               <div className="about-badge">
-                <strong>100%</strong>
-                <span>Satisfaction Guaranteed</span>
+                <strong>{t.about.badgeValue}</strong>
+                <span>{t.about.badgeLabel}</span>
               </div>
             </div>
             <div className="about-copy reveal">
-              <p className="sect-label">About Us</p>
-              <h2 className="about-h">Service at the<br />highest level.</h2>
-              <p>
-                PEAK ELITE W.L.L provides professional facility support and
-                hospitality-related services to high quality standards. Our
-                trained teams keep properties clean, well-maintained, and
-                running smoothly — with reliable and flexible service.
-              </p>
-              <p>
-                Our vision is to be Bahrain's most trusted facility partner —
-                for businesses, residences, hospitality venues, and events.
-              </p>
-              <a className="btn-navy" href="#contact">Contact Us</a>
+              <p className="sect-label">{t.about.label}</p>
+              <h2 className="about-h">{t.about.heading[0]}<br />{t.about.heading[1]}</h2>
+              <p>{t.about.p1}</p>
+              <p>{t.about.p2}</p>
+              <a className="btn-navy" href="#contact">{t.about.cta}</a>
             </div>
           </div>
         </section>
 
         {/* ── STATS BAND ── */}
         <div className="stats-band reveal-stagger">
-          {stats.map(({ value, label }) => (
+          {t.stats.map(({ value, label }) => (
             <div key={label} className="sband-item">
               <strong>{value}</strong>
               <span>{label}</span>
@@ -293,32 +331,24 @@ export default function App() {
         <section className="transform-sect" id="transformation">
           <div className="wrap transform-grid">
             <div className="transform-copy reveal">
-              <p className="sect-label">Before &amp; After</p>
-              <h2 className="transform-h">From clutter<br />to <em>calm.</em></h2>
-              <p>
-                Whether it's a wardrobe in chaos or a space that needs a complete
-                reset — our trained teams deliver results you can see and feel.
-              </p>
+              <p className="sect-label">{t.transform.label}</p>
+              <h2 className="transform-h">{t.transform.heading[0]}<br />{t.transform.heading[1]}<em>{t.transform.heading[2]}</em></h2>
+              <p>{t.transform.p}</p>
               <ul className="transform-list">
-                {[
-                  'Decluttering & deep organisation',
-                  'Professional cleaning & sanitisation',
-                  'Wardrobe & cabinet arranging',
-                  'Facility maintenance & upkeep',
-                ].map(pt => (
+                {t.transform.list.map(pt => (
                   <li key={pt}><CheckCircle2 size={15} /><span>{pt}</span></li>
                 ))}
               </ul>
-              <a className="btn-teal" href="#contact">Book a Service <ArrowRight size={15} /></a>
+              <a className="btn-teal" href="#contact">{t.transform.cta} <ArrowRight size={15} /></a>
             </div>
             <div className="ba-wrap reveal">
               <div className="ba-panel">
                 <div className="ba-img ba-img-before" />
-                <span className="ba-tag ba-tag-before">Before</span>
+                <span className="ba-tag ba-tag-before">{t.transform.before}</span>
               </div>
               <div className="ba-panel">
                 <div className="ba-img ba-img-after" />
-                <span className="ba-tag ba-tag-after">After</span>
+                <span className="ba-tag ba-tag-after">{t.transform.after}</span>
               </div>
             </div>
           </div>
@@ -328,12 +358,8 @@ export default function App() {
         <section className="services-sect" id="services">
           <div className="wrap">
             <div className="sect-head-center reveal">
-              <h2>Our Services</h2>
-              <p>
-                PEAK ELITE provides professional facility support and hospitality
-                services to the highest standards — with trained teams and
-                dependable processes.
-              </p>
+              <h2>{t.services.heading}</h2>
+              <p>{t.services.p}</p>
             </div>
             <div className="svc-grid reveal-stagger">
               {services.map(({ title, body, icon: Icon, img }) => (
@@ -341,7 +367,7 @@ export default function App() {
                   className="svc-card"
                   key={title}
                   role="img"
-                  aria-label={`${title} in Bahrain`}
+                  aria-label={title}
                   style={img ? { backgroundImage: `url(${img})` } : {}}
                 >
                   <div className="svc-card-inner">
@@ -351,7 +377,7 @@ export default function App() {
                     <h3>{title}</h3>
                     <p>{body}</p>
                     <a className="svc-link" href="#contact">
-                      Enquire <ArrowRight size={14} />
+                      {t.services.enquire} <ArrowRight size={14} />
                     </a>
                   </div>
                 </div>
@@ -364,23 +390,19 @@ export default function App() {
         <section className="pricing-sect" id="pricing">
           <div className="wrap">
             <div className="sect-head-center reveal">
-              <p className="sect-label">Rate Card</p>
-              <h2>Pricing</h2>
-              <p>
-                All prices are starting rates. Final pricing depends on size,
-                quantity of items, condition, accessibility, and overall scope
-                of work — terms and conditions may change.
-              </p>
+              <p className="sect-label">{t.pricing.label}</p>
+              <h2>{t.pricing.heading}</h2>
+              <p>{t.pricing.p}</p>
             </div>
             <div className="pricing-grid reveal-stagger">
-              {pricingGroups.map(({ title, note, tiers }) => (
+              {t.pricing.groups.map(({ title, note, tiers }) => (
                 <article className="pricing-card" key={title}>
                   <h3>{title}</h3>
                   <ul className="pricing-tiers">
-                    {tiers.map(({ label, price }) => (
-                      <li key={label}>
-                        <span>{label}</span>
-                        <strong>{price}</strong>
+                    {tiers.map((tier) => (
+                      <li key={tier.label}>
+                        <span>{tier.label}</span>
+                        <strong>{tierPrice(tier, t)}</strong>
                       </li>
                     ))}
                   </ul>
@@ -388,13 +410,9 @@ export default function App() {
                 </article>
               ))}
             </div>
-            <p className="pricing-disclaimer">
-              For larger projects, moving &amp; shifting, walk-in wardrobes and
-              extensive organisation, an inspection is required before
-              confirming the final quotation.
-            </p>
+            <p className="pricing-disclaimer">{t.pricing.disclaimer}</p>
             <div className="pricing-cta">
-              <a className="btn-teal" href="#contact">Get a Custom Quote <ArrowRight size={15} /></a>
+              <a className="btn-teal" href="#contact">{t.pricing.cta} <ArrowRight size={15} /></a>
             </div>
           </div>
         </section>
@@ -403,16 +421,13 @@ export default function App() {
         <section className="quality-sect" id="quality">
           <div className="wrap quality-grid">
             <div className="quality-copy reveal">
-              <p className="sect-label-lt">Quality Promises</p>
+              <p className="sect-label-lt">{t.quality.label}</p>
               <h2 className="quality-h">
-                What you can<br />expect from<br />us.
+                {t.quality.heading[0]}<br />{t.quality.heading[1]}<br />{t.quality.heading[2]}
               </h2>
-              <p>
-                Every client is managed with the same high standard —
-                thorough, reliable, and transparent.
-              </p>
+              <p>{t.quality.p}</p>
               <a className="btn-teal" href="#contact">
-                Contact Us <ArrowRight size={15} />
+                {t.quality.cta} <ArrowRight size={15} />
               </a>
             </div>
             <div className="quality-cards reveal-stagger">
@@ -423,21 +438,16 @@ export default function App() {
                   <p>{body}</p>
                 </article>
               ))}
-              <article className="quality-card">
-                <div className="quality-ico"><CheckCircle2 size={20} /></div>
-                <h3>Uniformed professionals</h3>
-                <p>Every team member arrives in uniform — presenting Peak Elite's corporate standard on every visit.</p>
-              </article>
-              <article className="quality-card">
-                <div className="quality-ico"><ClipboardList size={20} /></div>
-                <h3>Transparent service plans</h3>
-                <p>Clear scope, agreed delivery, no surprises — what we promise is what you receive.</p>
-              </article>
-              <article className="quality-card">
-                <div className="quality-ico"><Phone size={20} /></div>
-                <h3>Direct point of contact</h3>
-                <p>One dedicated contact for questions, adjustments, and new requirements — always accessible.</p>
-              </article>
+              {t.quality.extra.map((item, i) => {
+                const Icon = qualityExtraIcons[i];
+                return (
+                  <article className="quality-card" key={item.title}>
+                    <div className="quality-ico"><Icon size={20} /></div>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -446,13 +456,13 @@ export default function App() {
         <section className="markets-sect" id="markets">
           <div className="wrap">
             <div className="sect-head-center">
-              <p className="sect-label-dk">Who We Serve</p>
-              <h2>Who we work for.</h2>
-              <p>Every environment in Bahrain — served to the same elite standard.</p>
+              <p className="sect-label-dk">{t.markets.label}</p>
+              <h2>{t.markets.heading}</h2>
+              <p>{t.markets.p}</p>
             </div>
             <div className="markets-grid reveal-stagger">
               {markets.map(({ label, icon: Icon, img }) => (
-                <div className="market-card" key={label} role="img" aria-label={`${label} we serve in Bahrain`} style={{ backgroundImage: `url(${img})` }}>
+                <div className="market-card" key={label} role="img" aria-label={label} style={{ backgroundImage: `url(${img})` }}>
                   <div className="market-card-overlay" />
                   <div className="market-card-inner">
                     <div className="market-ico"><Icon size={22} /></div>
@@ -468,25 +478,22 @@ export default function App() {
         <section className="process-sect" id="approach">
           <div className="wrap">
             <div className="process-head">
-              <p className="sect-label-lt">How It Works</p>
-              <h2>Simple. Clear.<br />Dependable.</h2>
-              <p>A clear path from your first request to a fully delivered service.</p>
+              <p className="sect-label-lt">{t.process.label}</p>
+              <h2>{t.process.heading[0]}<br />{t.process.heading[1]}</h2>
+              <p>{t.process.p}</p>
             </div>
             <div className="steps-row reveal-stagger">
-              {[
-                { n: '01', title: 'Requirement Review',  desc: 'We listen to what you need and assess the scope.' },
-                { n: '02', title: 'Service Plan',        desc: 'A tailored plan with a clear timeline and costs.' },
-                { n: '03', title: 'Team Coordination',   desc: 'The right team is assigned and fully briefed.' },
-                { n: '04', title: 'On-Site Delivery',    desc: 'Professional execution to our highest standards.' },
-                { n: '05', title: 'Follow-Up',           desc: 'We check in to make sure you are satisfied.' },
-              ].map(({ n, title, desc }, i, arr) => (
-                <div className="step" key={n} data-step={n}>
-                  <span className="step-n">{n}</span>
-                  <h3>{title}</h3>
-                  <p className="step-desc">{desc}</p>
-                  {i < arr.length - 1 && <span className="step-arrow"><ArrowRight size={16} /></span>}
-                </div>
-              ))}
+              {t.process.steps.map(({ title, desc }, i, arr) => {
+                const n = String(i + 1).padStart(2, '0');
+                return (
+                  <div className="step" key={n} data-step={n}>
+                    <span className="step-n">{n}</span>
+                    <h3>{title}</h3>
+                    <p className="step-desc">{desc}</p>
+                    {i < arr.length - 1 && <span className="step-arrow"><ArrowRight size={16} /></span>}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -495,12 +502,12 @@ export default function App() {
         <section className="faq-sect" id="faq">
           <div className="wrap">
             <div className="sect-head-center reveal">
-              <p className="sect-label-dk">Frequently Asked Questions</p>
-              <h2>Common questions,<br />answered.</h2>
-              <p>Everything you need to know about PEAK ELITE's services in Bahrain.</p>
+              <p className="sect-label-dk">{t.faq.label}</p>
+              <h2>{t.faq.heading[0]}<br />{t.faq.heading[1]}</h2>
+              <p>{t.faq.p}</p>
             </div>
             <div className="faq-list reveal-stagger">
-              {faqs.map(({ q, a }) => (
+              {t.faq.list.map(({ q, a }) => (
                 <details className="faq-item" key={q}>
                   <summary>{q}</summary>
                   <p>{a}</p>
@@ -511,39 +518,39 @@ export default function App() {
         </section>
 
         {/* ── CONTACT ── */}
-        <ContactForm services={services} company={company} />
+        <ContactForm services={services} company={company} t={t} />
 
         {/* ── LOCATION ── */}
         <section className="location-sect" id="location">
           <div className="wrap location-head reveal">
-            <p className="sect-label-dk">Find Us</p>
-            <h2>Visit us in Bahrain.</h2>
+            <p className="sect-label-dk">{t.location.label}</p>
+            <h2>{t.location.heading}</h2>
           </div>
           <div className="location-map reveal">
             <a href="https://www.google.com/maps?q=26.215328,50.594311" target="_blank" rel="noopener noreferrer" className="location-map-link">
               <img src="/assets/googlemaps.jpg" alt="Peak Elite office location in Bahrain" loading="lazy" decoding="async" />
               <div className="location-map-overlay">
-                <MapPin size={20} /> Open in Google Maps
+                <MapPin size={20} /> {t.location.mapLink}
               </div>
             </a>
           </div>
           <div className="location-bar">
             <div className="location-bar-inner wrap">
               <div className="lbar-item">
-                <span className="lbar-label">Address</span>
-                <span className="lbar-val">Adliya Building, Gulf Executive Offices<br />9th Floor, Office 9002, El Azzab Group</span>
+                <span className="lbar-label">{t.location.addressLabel}</span>
+                <span className="lbar-val">{t.location.addressValue[0]}<br />{t.location.addressValue[1]}</span>
               </div>
               <div className="lbar-item">
-                <span className="lbar-label">Phone</span>
+                <span className="lbar-label">{t.location.phoneLabel}</span>
                 <span className="lbar-val">{company.phone}</span>
               </div>
               <div className="lbar-item">
-                <span className="lbar-label">Email</span>
+                <span className="lbar-label">{t.location.emailLabel}</span>
                 <span className="lbar-val">{company.email}</span>
               </div>
               <div className="lbar-item">
-                <span className="lbar-label">Hours</span>
-                <span className="lbar-val">Available 24 hours</span>
+                <span className="lbar-label">{t.location.hoursLabel}</span>
+                <span className="lbar-val">{t.location.hoursValue}</span>
               </div>
             </div>
           </div>
@@ -571,17 +578,17 @@ export default function App() {
             <PeakLogo />
             <div>
               <strong>PEAK ELITE W.L.L</strong>
-              <span>Cleaning · Maintenance · Hospitality · Events</span>
+              <span>{t.footer.tagline}</span>
             </div>
           </div>
           <nav className="footer-nav" aria-label="Footer">
-            <a href="#top">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#quality">Quality</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contact">Contact</a>
+            <a href="#top">{t.nav.home}</a>
+            <a href="#about">{t.nav.about}</a>
+            <a href="#services">{t.nav.services}</a>
+            <a href="#pricing">{t.nav.pricing}</a>
+            <a href="#quality">{t.nav.quality}</a>
+            <a href="#faq">{t.nav.faq}</a>
+            <a href="#contact">{t.nav.contact}</a>
             <a href={company.instagram} target="_blank" rel="noopener noreferrer" className="footer-ig" aria-label="Instagram">
               <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
@@ -591,7 +598,7 @@ export default function App() {
         </div>
         <div className="footer-base">
           <div className="wrap footer-base-row">
-            <span>© {new Date().getFullYear()} PEAK ELITE W.L.L. All rights reserved. · <a href="https://www.webiqq.com" target="_blank" rel="noopener noreferrer" className="footer-credit">Built by Webiqq</a></span>
+            <span>© {new Date().getFullYear()} PEAK ELITE W.L.L. {t.footer.rights} · <a href="https://www.webiqq.com" target="_blank" rel="noopener noreferrer" className="footer-credit">{t.footer.builtBy}</a></span>
             <span>{company.location}</span>
           </div>
         </div>
