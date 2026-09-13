@@ -69,6 +69,7 @@ export const translations = {
       afterInspection: 'After Inspection',
       quotedOnRequest: 'Quoted on Request',
       disclaimer: 'For larger projects, moving & shifting, walk-in wardrobes and extensive organisation, an inspection is required before confirming the final quotation.',
+      transportNote: 'A transport fee of BHD 2 per visit applies to all services, in addition to the rates listed above.',
       cta: 'Get a Custom Quote',
       groups: [
         {
@@ -91,7 +92,7 @@ export const translations = {
         },
         {
           title: 'Monthly Cleaning — Twice a Week',
-          note: 'General cleaning, 2 visits per week (8 visits per month). Transport (BHD 2) and any extra service outside standard cleaning are charged separately.',
+          note: 'General cleaning, 2 visits per week (8 visits per month). Any extra service outside standard cleaning is charged separately.',
           tiers: [
             { label: '1 Bedroom', price: 'BHD 30' },
             { label: '2 Bedroom', price: 'BHD 45' },
@@ -100,7 +101,7 @@ export const translations = {
         },
         {
           title: 'Monthly Cleaning — Once a Week',
-          note: 'General cleaning, 1 visit per week (4 visits per month). Transport (BHD 2) and any extra service outside standard cleaning are charged separately.',
+          note: 'General cleaning, 1 visit per week (4 visits per month). Any extra service outside standard cleaning is charged separately.',
           tiers: [
             { label: '1 Bedroom', price: 'BHD 20' },
             { label: '2 Bedroom', price: 'BHD 30' },
@@ -329,6 +330,7 @@ export const translations = {
       afterInspection: 'حسب المعاينة',
       quotedOnRequest: 'السعر عند الطلب',
       disclaimer: 'للمشاريع الكبيرة، النقل والترتيب، الخزائن الكبيرة (Walk-in)، والتنظيم الشامل، يلزم إجراء معاينة قبل تأكيد السعر النهائي.',
+      transportNote: 'تُطبّق رسوم تنقل بقيمة 2 دينار بحريني لكل زيارة على جميع الخدمات، إضافة إلى الأسعار المذكورة أعلاه.',
       cta: 'اطلب عرض سعر مخصص',
       groups: [
         {
@@ -351,7 +353,7 @@ export const translations = {
         },
         {
           title: 'باقة التنظيف الشهرية — مرتين أسبوعياً',
-          note: 'تنظيف عام، زيارتان أسبوعياً (8 زيارات شهرياً). رسوم التنقل (2 دينار) وأي خدمة إضافية خارج التنظيف الأساسي تُحتسب بشكل منفصل.',
+          note: 'تنظيف عام، زيارتان أسبوعياً (8 زيارات شهرياً). أي خدمة إضافية خارج التنظيف الأساسي تُحتسب بشكل منفصل.',
           tiers: [
             { label: 'غرفة واحدة', price: '30 دينار' },
             { label: 'غرفتان', price: '45 دينار' },
@@ -360,7 +362,7 @@ export const translations = {
         },
         {
           title: 'باقة التنظيف الشهرية — مرة أسبوعياً',
-          note: 'تنظيف عام، زيارة واحدة أسبوعياً (4 زيارات شهرياً). رسوم التنقل (2 دينار) وأي خدمة إضافية خارج التنظيف الأساسي تُحتسب بشكل منفصل.',
+          note: 'تنظيف عام، زيارة واحدة أسبوعياً (4 زيارات شهرياً). أي خدمة إضافية خارج التنظيف الأساسي تُحتسب بشكل منفصل.',
           tiers: [
             { label: 'غرفة واحدة', price: '20 دينار' },
             { label: 'غرفتان', price: '30 دينار' },

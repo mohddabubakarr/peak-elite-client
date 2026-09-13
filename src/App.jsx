@@ -420,6 +420,7 @@ export default function App() {
                 </article>
               ))}
             </div>
+            <p className="pricing-disclaimer">{t.pricing.transportNote}</p>
             <p className="pricing-disclaimer">{t.pricing.disclaimer}</p>
             <div className="pricing-cta">
               <a className="btn-teal" href="#contact">{t.pricing.cta} <ArrowRight size={15} /></a>
