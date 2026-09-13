@@ -103,7 +103,7 @@ export const translations = {
           note: 'General cleaning, 1 visit per week (4 visits per month). Transport (BHD 2) and any extra service outside standard cleaning are charged separately.',
           tiers: [
             { label: '1 Bedroom', price: 'BHD 20' },
-            { label: '2 Bedroom', price: 'BHD 28' },
+            { label: '2 Bedroom', price: 'BHD 30' },
             { label: '3 Bedroom', price: 'BHD 45' },
           ],
         },
@@ -363,7 +363,7 @@ export const translations = {
           note: 'تنظيف عام، زيارة واحدة أسبوعياً (4 زيارات شهرياً). رسوم التنقل (2 دينار) وأي خدمة إضافية خارج التنظيف الأساسي تُحتسب بشكل منفصل.',
           tiers: [
             { label: 'غرفة واحدة', price: '20 دينار' },
-            { label: 'غرفتان', price: '28 دينار' },
+            { label: 'غرفتان', price: '30 دينار' },
             { label: '3 غرف', price: '45 دينار' },
           ],
         },
