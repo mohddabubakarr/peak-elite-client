@@ -90,6 +90,24 @@ export const translations = {
           ],
         },
         {
+          title: 'Monthly Cleaning — Twice a Week',
+          note: 'General cleaning, 2 visits per week (8 visits per month). Transport (BHD 2) and any extra service outside standard cleaning are charged separately.',
+          tiers: [
+            { label: '1 Bedroom', price: 'BHD 30' },
+            { label: '2 Bedroom', price: 'BHD 45' },
+            { label: '3 Bedroom', price: 'BHD 60' },
+          ],
+        },
+        {
+          title: 'Monthly Cleaning — Once a Week',
+          note: 'General cleaning, 1 visit per week (4 visits per month). Transport (BHD 2) and any extra service outside standard cleaning are charged separately.',
+          tiers: [
+            { label: '1 Bedroom', price: 'BHD 20' },
+            { label: '2 Bedroom', price: 'BHD 28' },
+            { label: '3 Bedroom', price: 'BHD 45' },
+          ],
+        },
+        {
           title: 'Deep Cleaning',
           note: 'Final price depends on the size and condition of the property and the scope of work required.',
           tiers: [
@@ -329,6 +347,24 @@ export const translations = {
           note: 'تنظيف منزلي دوري — إزالة الأتربة، الشفط والمسح، تنظيف المطبخ والحمامات، وترتيب عام. الحد الأدنى للحجز 3 ساعات.',
           tiers: [
             { label: 'بالساعة', price: '2.500 دينار' },
+          ],
+        },
+        {
+          title: 'باقة التنظيف الشهرية — مرتين أسبوعياً',
+          note: 'تنظيف عام، زيارتان أسبوعياً (8 زيارات شهرياً). رسوم التنقل (2 دينار) وأي خدمة إضافية خارج التنظيف الأساسي تُحتسب بشكل منفصل.',
+          tiers: [
+            { label: 'غرفة واحدة', price: '30 دينار' },
+            { label: 'غرفتان', price: '45 دينار' },
+            { label: '3 غرف', price: '60 دينار' },
+          ],
+        },
+        {
+          title: 'باقة التنظيف الشهرية — مرة أسبوعياً',
+          note: 'تنظيف عام، زيارة واحدة أسبوعياً (4 زيارات شهرياً). رسوم التنقل (2 دينار) وأي خدمة إضافية خارج التنظيف الأساسي تُحتسب بشكل منفصل.',
+          tiers: [
+            { label: 'غرفة واحدة', price: '20 دينار' },
+            { label: 'غرفتان', price: '28 دينار' },
+            { label: '3 غرف', price: '45 دينار' },
           ],
         },
         {
