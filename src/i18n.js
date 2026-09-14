@@ -87,7 +87,7 @@ export const translations = {
           title: 'Home Cleaning',
           note: 'Regular home cleaning — dusting, vacuuming & mopping, kitchen and bathroom cleaning, general tidying. Minimum booking of 3 hours.',
           tiers: [
-            { label: 'Per Hour', price: 'BHD 2.500' },
+            { label: 'Per Hour', price: 'BHD 3.000' },
           ],
         },
         {
@@ -348,7 +348,7 @@ export const translations = {
           title: 'تنظيف المنازل',
           note: 'تنظيف منزلي دوري — إزالة الأتربة، الشفط والمسح، تنظيف المطبخ والحمامات، وترتيب عام. الحد الأدنى للحجز 3 ساعات.',
           tiers: [
-            { label: 'بالساعة', price: '2.500 دينار' },
+            { label: 'بالساعة', price: '3.000 دينار' },
           ],
         },
         {
