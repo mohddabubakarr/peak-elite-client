@@ -84,10 +84,10 @@ export const translations = {
           ],
         },
         {
-          title: 'Home Cleaning',
-          note: 'Regular home cleaning — dusting, vacuuming & mopping, kitchen and bathroom cleaning, general tidying. Minimum booking of 3 hours.',
+          title: 'House Cleaning & Household Support',
+          note: 'Dusting, vacuuming & mopping, kitchen and bathroom cleaning, dishwashing, bed-making and general tidying. Minimum booking of 3 hours. Rate is per person — BHD 3 covers one cleaner; each additional cleaner is BHD 3 per hour. For larger homes, heavy dishes, multiple bathrooms, children, pets or significant mess, we charge for the additional time required. Heavy dish piles or scrubbing are charged after inspection.',
           tiers: [
-            { label: 'Per Hour', price: 'BHD 3.000' },
+            { label: 'Per Person / Hour', price: 'BHD 3.000' },
           ],
         },
         {
@@ -345,10 +345,10 @@ export const translations = {
           ],
         },
         {
-          title: 'تنظيف المنازل',
-          note: 'تنظيف منزلي دوري — إزالة الأتربة، الشفط والمسح، تنظيف المطبخ والحمامات، وترتيب عام. الحد الأدنى للحجز 3 ساعات.',
+          title: 'تنظيف المنازل والدعم المنزلي',
+          note: 'إزالة الأتربة، الشفط والمسح، تنظيف المطبخ والحمامات، غسل الأطباق، ترتيب الأسرّة، وترتيب عام. الحد الأدنى للحجز 3 ساعات. السعر لكل شخص — 3 دنانير تغطي عاملة واحدة، ولكل عاملة إضافية 3 دنانير في الساعة. للمنازل الكبيرة أو كثرة الأطباق أو تعدد الحمامات أو وجود أطفال أو حيوانات أليفة أو فوضى كبيرة، تُحتسب الرسوم حسب الوقت الإضافي المطلوب. أما تكدّس الأطباق أو الحاجة إلى فرك شديد فتُحتسب بعد المعاينة.',
           tiers: [
-            { label: 'بالساعة', price: '3.000 دينار' },
+            { label: 'للشخص / الساعة', price: '3.000 دينار' },
           ],
         },
         {
