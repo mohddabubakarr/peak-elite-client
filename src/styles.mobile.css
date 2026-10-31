@@ -65,6 +65,8 @@
   .svc-card      { min-height: 260px; }
   .svc-link      { opacity: 1; transform: none; }
 
+  .terms-sect    { padding: 72px 0; }
+  .terms-item    { padding: 18px 16px; }
   .pricing-sect  { padding: 72px 0; }
   .pricing-grid  { grid-template-columns: 1fr; }
 

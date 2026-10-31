@@ -1105,6 +1105,102 @@ ul    { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ================================================================
+   TERMS & CONDITIONS
+   ================================================================ */
+.terms-sect {
+  padding: 100px 0;
+  background: var(--light);
+  border-top: 1px solid var(--border);
+}
+.terms-sect .sect-head-center h2 { color: var(--navy); }
+.terms-sect .sect-head-center p  { color: var(--text-2); }
+.terms-intro {
+  max-width: 820px;
+  margin: 0 auto 32px;
+  display: grid;
+  gap: 12px;
+}
+.terms-intro p {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--text-2);
+}
+.terms-item { background: var(--white); }
+.terms-sum { display: flex; align-items: center; gap: 12px; }
+.terms-n {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--teal-bg);
+  color: var(--teal-dk);
+  font-size: 12px;
+  font-weight: 800;
+}
+.terms-list { display: grid; gap: 12px; margin-top: 16px; }
+.terms-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-2);
+  font-weight: 300;
+}
+.terms-item-n {
+  min-width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--light-2);
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 700;
+}
+.terms-bullets li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  margin-top: 10px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+.faq-item .terms-note {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: var(--teal-bg);
+  border-inline-start: 3px solid var(--teal);
+  color: var(--navy);
+  font-weight: 400;
+}
+.terms-closing {
+  max-width: 820px;
+  margin: 32px auto 0;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-2);
+  text-align: center;
+}
+.terms-signoff {
+  margin-top: 14px;
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-dk);
+}
+
+/* ================================================================
    CONTACT
    ================================================================ */
 .contact-sect {
